@@ -548,7 +548,7 @@ function showToast(ico,msg){const t=document.getElementById('toast');document.ge
   document.getElementById('checkout').value=fmt(d);
   const hr=now.getHours();
   document.querySelector('.hero-greeting').textContent=hr<12?'Good morning 🌤️':hr<17?'Good afternoon ☀️':'Good evening 🌙';
-  renderFeatured();renderCards(getFiltered());updateBadges();
+  document.getElementById('searchInput').value='';filters={city:'All',amenities:[],maxPrice:1200};renderFeatured();renderCards(getFiltered());updateBadges();
 })();
 </script>
 </body>
