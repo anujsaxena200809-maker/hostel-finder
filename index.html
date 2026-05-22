@@ -1,173 +1,557 @@
+Got it! Adding a hostel near Jain University and resending the full updated code now.Here's the full updated code — copy everything:
 
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Team India — Cricket Stats</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #0a0a0f;
-      color: #fff;
-      min-height: 100vh;
-    }
-    .hero {
-      background: linear-gradient(135deg, #003580, #001f4d, #0a0a0f);
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .flag { font-size: 4rem; margin-bottom: 12px; }
-    .hero h1 { font-size: 2.2rem; color: #fff; margin-bottom: 8px; }
-    .hero p { color: #88aaff; letter-spacing: 2px; font-size: 0.85rem; }
-    .section { max-width: 750px; margin: 0 auto; padding: 30px 16px; }
-    .section h2 { font-size: 0.75rem; letter-spacing: 3px; color: #4488ff; text-transform: uppercase; margin-bottom: 20px; border-bottom: 1px solid #1a1a2e; padding-bottom: 8px; }
-    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 30px; }
-    @media(min-width: 500px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
-    .stat-card { background: #0d0d1a; border: 1px solid #1a1a3a; border-radius: 12px; padding: 20px; text-align: center; }
-    .stat-num { font-size: 2rem; font-weight: 700; color: #4488ff; }
-    .stat-label { font-size: 0.7rem; color: #666; margin-top: 4px; letter-spacing: 1px; }
-    .player-card {
-      background: #0d0d1a; border: 1px solid #1a1a3a; border-radius: 12px;
-      padding: 16px 20px; margin-bottom: 12px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .player-num { font-size: 2rem; min-width: 40px; text-align: center; }
-    .player-info { flex: 1; }
-    .player-info h3 { font-size: 1rem; margin-bottom: 4px; }
-    .player-info p { font-size: 0.8rem; color: #888; }
-    .player-stat { text-align: right; }
-    .player-stat .num { font-size: 1.4rem; font-weight: 700; color: #4488ff; }
-    .player-stat .label { font-size: 0.65rem; color: #666; }
-    .match-card {
-      background: #0d0d1a; border: 1px solid #1a1a3a; border-radius: 12px;
-      padding: 16px 20px; margin-bottom: 12px;
-    }
-    .match-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .match-vs { font-size: 1rem; font-weight: 600; }
-    .match-result { font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; }
-    .win { background: #0a2a0a; color: #4caf50; }
-    .loss { background: #2a0a0a; color: #f44336; }
-    .match-detail { font-size: 0.8rem; color: #666; }
-    .icc-badge {
-      display: inline-block; background: #003580; color: #fff;
-      font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayNest — Find Your Perfect Hostel</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  --bg:#0d0c0a; --surface:#141210; --card:#1c1915; --card2:#221f19;
+  --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.1); --amber-border:rgba(245,158,11,0.22);
+  --green:#10b981; --red:#ef4444; --text:#f5f0e8;
+  --muted:rgba(245,240,232,0.48); --faint:rgba(245,240,232,0.06);
+  --border:rgba(245,240,232,0.08); --r:20px; --rs:12px;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 10% 5%,rgba(245,158,11,0.05) 0%,transparent 55%),radial-gradient(ellipse 40% 30% at 90% 85%,rgba(245,158,11,0.04) 0%,transparent 55%);pointer-events:none;z-index:0;}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;animation:splashOut 0.5s ease 2.9s forwards;}
+.sp-logo{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:700;color:var(--amber);letter-spacing:-3px;line-height:1;animation:spPop 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;}
+.sp-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:4px;text-transform:uppercase;animation:fadeUp 0.7s ease 1s both;}
+.sp-track{width:130px;height:3px;background:var(--faint);border-radius:2px;margin-top:36px;overflow:hidden;animation:fadeUp 0.6s ease 1.3s both;}
+.sp-fill{height:100%;background:var(--amber);border-radius:2px;width:0;animation:fillBar 1.4s ease 1.4s forwards;}
+.sp-cities{display:flex;gap:16px;margin-top:28px;animation:fadeUp 0.6s ease 1.8s both;}
+.sp-city{font-size:22px;animation:cityFloat 2s ease infinite alternate;}
+.sp-city:nth-child(1){animation-delay:0s;} .sp-city:nth-child(2){animation-delay:0.3s;} .sp-city:nth-child(3){animation-delay:0.6s;} .sp-city:nth-child(4){animation-delay:0.9s;} .sp-city:nth-child(5){animation-delay:1.2s;}
+@keyframes spPop{from{opacity:0;transform:scale(0.6);}to{opacity:1;transform:scale(1);}}
+@keyframes splashOut{to{opacity:0;pointer-events:none;}}
+@keyframes fillBar{to{width:100%;}}
+@keyframes cityFloat{from{transform:translateY(0);}to{transform:translateY(-6px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes confirmPop{from{transform:scale(0) rotate(-10deg);}to{transform:scale(1) rotate(0);}}
+@keyframes confettiFall{from{transform:translateY(-20px) rotate(0deg);opacity:1;}to{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+.status-bar{position:sticky;top:0;z-index:80;background:rgba(13,12,10,0.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:12px 20px 10px;}
+.brand{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--amber);letter-spacing:-0.5px;}
+.brand em{font-style:italic;font-weight:400;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.hdr-btn{width:38px;height:38px;border-radius:12px;background:var(--faint);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;position:relative;transition:background 0.2s;}
+.hdr-btn:hover{background:var(--amber-dim);}
+.notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);}
+#app{position:relative;z-index:1;padding-bottom:100px;animation:fadeIn 0.4s ease 3.1s both;}
+.tab-content{display:none;} .tab-content.active{display:block;}
+.hero{padding:24px 20px 0;}
+.hero-greeting{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1.1;letter-spacing:-0.5px;margin-bottom:22px;}
+.hero-title em{color:var(--amber);font-style:italic;}
+.search-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.s-row{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;transition:border-color 0.2s;}
+.s-row:focus-within{border-color:var(--amber-border);}
+.s-icon{font-size:18px;flex-shrink:0;}
+.s-input{background:none;border:none;outline:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;width:100%;}
+.s-input::placeholder{color:var(--muted);}
+.s-divider{height:1px;background:var(--border);}
+.s-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.date-field{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px;transition:border-color 0.2s;}
+.date-field:focus-within{border-color:var(--amber-border);}
+.date-lbl{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.date-inp{background:none;border:none;outline:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;width:100%;cursor:pointer;color-scheme:dark;}
+.s-bottom{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;}
+.guests-field{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.guest-ctrls{display:flex;align-items:center;gap:12px;}
+.g-btn{width:28px;height:28px;border-radius:8px;background:var(--faint);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;}
+.g-btn:hover{background:var(--amber-dim);border-color:var(--amber-border);}
+#guestCount{font-size:17px;font-weight:700;min-width:22px;text-align:center;}
+.search-btn{background:var(--amber);color:var(--bg);border:none;border-radius:var(--rs);padding:12px 18px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:opacity 0.2s,transform 0.1s;white-space:nowrap;}
+.search-btn:hover{opacity:0.88;} .search-btn:active{transform:scale(0.96);}
+.city-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 20px 4px;scrollbar-width:none;margin-bottom:24px;}
+.city-scroll::-webkit-scrollbar{display:none;}
+.city-chip{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.city-chip:hover{border-color:var(--amber-border);background:var(--amber-dim);}
+.city-chip.active{background:var(--amber);border-color:var(--amber);color:var(--bg);font-weight:700;}
+.filters-section{padding:0 20px;margin-bottom:24px;}
+.section-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;letter-spacing:-0.3px;}
+.see-all{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:1px;cursor:pointer;text-transform:uppercase;}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.filter-chip{padding:6px 13px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.filter-chip:hover{border-color:var(--amber-border);}
+.filter-chip.active{background:var(--amber-dim);border-color:var(--amber-border);color:var(--amber);}
+.price-filter{margin-top:14px;padding:16px;background:var(--card);border-radius:var(--rs);border:1px solid var(--border);}
+.price-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.price-lbl{font-size:13px;color:var(--muted);}
+.price-val{font-size:14px;font-weight:700;color:var(--amber);font-family:'JetBrains Mono',monospace;}
+.price-slider{-webkit-appearance:none;width:100%;height:4px;background:linear-gradient(to right,var(--amber) 100%,var(--faint) 100%);border-radius:2px;outline:none;cursor:pointer;}
+.price-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--amber);cursor:pointer;box-shadow:0 0 0 4px rgba(245,158,11,0.18);}
+.results-hdr{padding:0 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.results-count{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;}
+.results-count span{color:var(--amber);}
+.sort-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.sort-btn:hover{border-color:var(--amber-border);}
+.hostels-grid{padding:0 20px;display:flex;flex-direction:column;gap:16px;}
+.hostel-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform 0.22s,border-color 0.22s,box-shadow 0.22s;animation:fadeUp 0.5s ease both;}
+.hostel-card:hover{transform:translateY(-4px);border-color:var(--amber-border);box-shadow:0 16px 50px rgba(0,0,0,0.45);}
+.hostel-card:active{transform:scale(0.985);}
+.card-img{height:190px;position:relative;overflow:hidden;}
+.card-img-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;transition:transform 0.4s ease;}
+.hostel-card:hover .card-img-bg{transform:scale(1.04);}
+.card-img-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(28,25,21,0.96) 100%);}
+.card-badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--amber);color:var(--bg);font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;}
+.card-badge.hot{background:var(--red);color:#fff;} .card-badge.newbadge{background:var(--green);color:#fff;}
+.card-wish{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;background:rgba(13,12,10,0.68);backdrop-filter:blur(8px);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all 0.2s;}
+.card-wish:hover{transform:scale(1.12);}
+.card-wish.saved{background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.35);}
+.card-price-ov{position:absolute;bottom:14px;right:14px;z-index:2;background:rgba(13,12,10,0.82);backdrop-filter:blur(8px);border-radius:11px;padding:6px 12px;text-align:right;}
+.price-num{font-size:19px;font-weight:700;color:var(--amber);font-family:'JetBrains Mono',monospace;}
+.price-per{font-size:10px;color:var(--muted);}
+.card-body{padding:16px;}
+.card-loc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px;}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:8px;letter-spacing:-0.3px;}
+.card-rating{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+.stars{color:var(--amber);font-size:13px;letter-spacing:0.5px;}
+.r-num{font-weight:700;font-size:14px;color:var(--amber);}
+.r-count{font-size:12px;color:var(--muted);}
+.card-amens{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.amen-badge{padding:4px 10px;border-radius:20px;background:var(--faint);border:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
+.avail{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:500;}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite;}
+.view-btn{background:var(--amber);color:var(--bg);border:none;border-radius:10px;padding:8px 18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s,transform 0.1s;}
+.view-btn:hover{opacity:0.88;} .view-btn:active{transform:scale(0.94);}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(20,18,16,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;padding:10px 0 18px;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:5px 0;transition:opacity 0.2s;position:relative;}
+.nav-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all 0.2s;}
+.nav-item.active .nav-icon{background:var(--amber-dim);border:1px solid var(--amber-border);}
+.nav-lbl{font-size:10px;font-weight:500;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+.nav-item.active .nav-lbl{color:var(--amber);}
+.nav-badge{position:absolute;top:2px;right:18%;background:var(--red);color:#fff;font-size:9px;font-weight:700;font-family:'JetBrains Mono',monospace;min-width:16px;height:16px;border-radius:8px;padding:0 4px;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);}
+.modal-ov{position:fixed;inset:0;z-index:160;background:rgba(0,0,0,0.78);backdrop-filter:blur(7px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.modal-ov.open{opacity:1;pointer-events:all;}
+.modal-sheet{width:100%;max-width:480px;max-height:93vh;background:var(--surface);border-radius:28px 28px 0 0;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform 0.42s cubic-bezier(0.32,0.72,0,1);}
+.modal-sheet::-webkit-scrollbar{display:none;}
+.modal-ov.open .modal-sheet{transform:translateY(0);}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:16px auto 0;}
+.modal-hero{height:250px;position:relative;margin:16px 16px 0;border-radius:20px;overflow:hidden;}
+.modal-hero-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:90px;}
+.modal-hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,rgba(20,18,16,0.93) 100%);}
+.modal-close{position:absolute;top:12px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(13,12,10,0.72);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modal-hero-wish{position:absolute;top:12px;left:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(13,12,10,0.72);backdrop-filter:blur(8px);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all 0.2s;}
+.modal-hero-info{position:absolute;bottom:16px;left:16px;right:16px;z-index:2;}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;letter-spacing:-0.5px;line-height:1.1;}
+.modal-loc{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:5px;}
+.modal-body{padding:20px 20px 36px;}
+.modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.mstat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;}
+.mstat-val{font-size:21px;font-weight:700;color:var(--amber);font-family:'Cormorant Garamond',serif;}
+.mstat-lbl{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.modal-desc{font-size:14px;line-height:1.75;color:rgba(245,240,232,0.72);margin-bottom:22px;}
+.modal-sec-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:14px;}
+.amen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.amen-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;transition:border-color 0.2s;}
+.amen-item:hover{border-color:var(--amber-border);}
+.amen-em{font-size:26px;margin-bottom:5px;} .amen-nm{font-size:11px;color:var(--muted);font-weight:500;}
+.reviews-list{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.rv-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.reviewer{display:flex;align-items:center;gap:10px;}
+.rv-avatar{width:38px;height:38px;border-radius:12px;background:var(--amber-dim);border:1px solid var(--amber-border);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.rv-name{font-size:14px;font-weight:600;} .rv-date{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;} .rv-stars{color:var(--amber);font-size:12px;}
+.rv-text{font-size:13px;color:rgba(245,240,232,0.68);line-height:1.65;}
+.map-wrap{height:150px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;overflow:hidden;position:relative;}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,158,11,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.05) 1px,transparent 1px);background-size:28px 28px;}
+.map-pin{font-size:36px;z-index:1;animation:bounce 1.6s ease infinite;}
+.map-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;z-index:1;}
+.booking-bar{background:var(--card);border:1px solid var(--amber-border);border-radius:20px;padding:20px;}
+.bk-price-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;}
+.bk-price{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--amber);letter-spacing:-1px;}
+.bk-price sub{font-size:14px;font-weight:400;color:var(--muted);font-family:'Outfit',sans-serif;}
+.bk-total{font-size:13px;color:var(--muted);text-align:right;}
+.bk-total strong{color:var(--text);font-size:16px;}
+.book-now-btn{width:100%;padding:18px;background:var(--amber);color:var(--bg);border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;letter-spacing:0.3px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:all 0.2s;}
+.book-now-btn:hover{opacity:0.88;transform:scale(0.99);} .book-now-btn:active{transform:scale(0.96);}
+.confirm-ov{position:fixed;inset:0;z-index:250;background:rgba(13,12,10,0.97);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity 0.35s;padding:40px;text-align:center;}
+.confirm-ov.open{opacity:1;pointer-events:all;}
+.confirm-icon{width:100px;height:100px;border-radius:32px;background:rgba(16,185,129,0.12);border:2px solid rgba(16,185,129,0.3);display:flex;align-items:center;justify-content:center;font-size:52px;animation:confirmPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both;}
+.confirm-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;}
+.confirm-sub{font-size:15px;color:var(--muted);line-height:1.65;max-width:290px;}
+.confirm-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:320px;}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;}
+.confirm-row:not(:last-child){border-bottom:1px solid var(--border);}
+.ck{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+.cv{font-size:14px;font-weight:600;}
+.cv.id{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber);background:var(--amber-dim);padding:2px 8px;border-radius:6px;}
+.confirm-btn{background:var(--amber);color:var(--bg);border:none;border-radius:14px;padding:16px 44px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;cursor:pointer;transition:opacity 0.2s;}
+.confirm-btn:hover{opacity:0.88;}
+.confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.confetti{position:absolute;width:8px;height:8px;border-radius:2px;animation:confettiFall linear forwards;}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;gap:12px;}
+.empty-em{font-size:64px;} .empty-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;} .empty-sub{font-size:14px;color:var(--muted);line-height:1.65;}
+.tab-pg{padding-top:24px;}
+.tab-pg-hdr{padding:0 20px 20px;display:flex;justify-content:space-between;align-items:center;}
+.tab-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;}
+.booking-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;margin:0 20px 14px;}
+.bk-card-hdr{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+.bk-thumb{width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.bk-info{flex:1;} .bk-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;margin-bottom:3px;} .bk-city{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.bk-status{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:1px;align-self:flex-start;}
+.s-confirmed{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.28);color:var(--green);}
+.bk-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.bk-col{background:var(--bg);border-radius:10px;padding:8px 10px;text-align:center;}
+.bk-col-lbl{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+.bk-col-val{font-size:13px;font-weight:600;margin-top:2px;}
+.profile-hdr{padding:32px 20px 24px;text-align:center;}
+.profile-av{width:90px;height:90px;border-radius:28px;background:var(--amber-dim);border:2px solid var(--amber-border);display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 16px;}
+.profile-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;margin-bottom:5px;}
+.profile-email{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px;margin-bottom:24px;}
+.p-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 8px;text-align:center;}
+.p-stat-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--amber);}
+.p-stat-lbl{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+.profile-menu{padding:0 20px;display:flex;flex-direction:column;gap:10px;}
+.menu-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color 0.2s;}
+.menu-item:hover{border-color:var(--amber-border);}
+.menu-ico{width:42px;height:42px;border-radius:13px;background:var(--faint);display:flex;align-items:center;justify-content:center;font-size:19px;}
+.menu-txt{flex:1;} .menu-title{font-size:15px;font-weight:600;} .menu-sub{font-size:12px;color:var(--muted);margin-top:2px;} .menu-arr{color:var(--muted);font-size:20px;}
+.toast{position:fixed;top:78px;left:50%;transform:translateX(-50%) translateY(-16px);background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:11px 18px;display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;z-index:500;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.featured-strip{padding:0 20px;margin-bottom:28px;}
+.featured-scroll{display:flex;gap:14px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.featured-scroll::-webkit-scrollbar{display:none;}
+.featured-card{min-width:200px;height:120px;border-radius:16px;flex-shrink:0;display:flex;align-items:flex-end;padding:14px;position:relative;overflow:hidden;cursor:pointer;transition:transform 0.2s;}
+.featured-card:hover{transform:scale(1.03);}
+.fc-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:56px;}
+.fc-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(13,12,10,0.85) 100%);}
+.fc-info{position:relative;z-index:1;}
+.fc-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;line-height:1.1;}
+.fc-city{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.trending-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:20px;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:1px;margin-bottom:20px;margin-left:20px;}
+.trend-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 1.5s ease infinite;}
+</style>
 </head>
 <body>
 
-  <div class="hero">
-    <div class="flag">🇮🇳</div>
-    <h1>Team India</h1>
-    <p>MEN'S CRICKET · ICC RANKINGS & STATS</p>
+<div id="splash">
+  <div class="sp-logo">Stay<em>Nest</em></div>
+  <div class="sp-sub">India's best student hostels</div>
+  <div class="sp-track"><div class="sp-fill"></div></div>
+  <div class="sp-cities">
+    <span class="sp-city">🌆</span><span class="sp-city">🏖️</span>
+    <span class="sp-city">🏔️</span><span class="sp-city">🏰</span><span class="sp-city">🌃</span>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toastIco">🔖</span><span id="toastTxt">Saved!</span></div>
+
+<div class="status-bar">
+  <div class="brand">Stay<em>Nest</em></div>
+  <div class="hdr-right">
+    <div class="hdr-btn">🔔<div class="notif-dot"></div></div>
+    <div class="hdr-btn">👤</div>
+  </div>
+</div>
+
+<div id="app">
+
+  <div class="tab-content active" id="tab-explore">
+    <div class="hero">
+      <div class="hero-greeting">Good afternoon 👋</div>
+      <div class="hero-title">Find your perfect<br><em>student hostel</em></div>
+      <div class="search-box">
+        <div class="s-row">
+          <span class="s-icon">📍</span>
+          <input class="s-input" id="searchInput" placeholder="Search city, area or hostel..." oninput="handleSearch()">
+        </div>
+        <div class="s-divider"></div>
+        <div class="s-dates">
+          <div class="date-field"><div class="date-lbl">Check-in</div><input type="date" class="date-inp" id="checkin"></div>
+          <div class="date-field"><div class="date-lbl">Check-out</div><input type="date" class="date-inp" id="checkout"></div>
+        </div>
+        <div class="s-bottom">
+          <div class="guests-field">
+            <div><div class="date-lbl">Guests</div><div id="guestCount" style="font-size:17px;font-weight:700;">2</div></div>
+            <div class="guest-ctrls">
+              <button class="g-btn" onclick="chGuests(-1)">−</button>
+              <button class="g-btn" onclick="chGuests(1)">+</button>
+            </div>
+          </div>
+          <button class="search-btn" onclick="handleSearch()">🔍 Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="trending-tag"><span class="trend-dot"></span>🔥 13 hostels across 8 cities</div>
+
+    <div class="featured-strip">
+      <div class="section-hdr" style="padding:0 0 14px 0;">
+        <div class="section-title">Featured Picks</div>
+        <div class="see-all">View all</div>
+      </div>
+      <div class="featured-scroll" id="featuredStrip"></div>
+    </div>
+
+    <div class="city-scroll">
+      <div class="city-chip active" onclick="filterCity('All',this)">🌍 All Cities</div>
+      <div class="city-chip" onclick="filterCity('Bangalore',this)">🌆 Bangalore</div>
+      <div class="city-chip" onclick="filterCity('Goa',this)">🏖️ Goa</div>
+      <div class="city-chip" onclick="filterCity('Mumbai',this)">🌃 Mumbai</div>
+      <div class="city-chip" onclick="filterCity('Delhi',this)">🏛️ Delhi</div>
+      <div class="city-chip" onclick="filterCity('Rishikesh',this)">🏔️ Rishikesh</div>
+      <div class="city-chip" onclick="filterCity('Manali',this)">❄️ Manali</div>
+      <div class="city-chip" onclick="filterCity('Jaipur',this)">🏰 Jaipur</div>
+      <div class="city-chip" onclick="filterCity('Pune',this)">🎓 Pune</div>
+    </div>
+
+    <div class="filters-section">
+      <div class="section-hdr">
+        <div class="section-title">Filter by</div>
+        <div class="see-all" onclick="resetFilters()">Reset all</div>
+      </div>
+      <div class="filter-chips">
+        <div class="filter-chip" onclick="toggleFilter('wifi',this)">📶 WiFi</div>
+        <div class="filter-chip" onclick="toggleFilter('ac',this)">❄️ AC</div>
+        <div class="filter-chip" onclick="toggleFilter('food',this)">🍛 Food</div>
+        <div class="filter-chip" onclick="toggleFilter('pool',this)">🏊 Pool</div>
+        <div class="filter-chip" onclick="toggleFilter('gym',this)">💪 Gym</div>
+        <div class="filter-chip" onclick="toggleFilter('laundry',this)">👕 Laundry</div>
+        <div class="filter-chip" onclick="toggleFilter('parking',this)">🚗 Parking</div>
+        <div class="filter-chip" onclick="toggleFilter('pet',this)">🐾 Pet-Friendly</div>
+      </div>
+      <div class="price-filter">
+        <div class="price-hdr">
+          <span class="price-lbl">Max price per night</span>
+          <span class="price-val" id="priceDisplay">₹1200</span>
+        </div>
+        <input type="range" class="price-slider" id="priceSlider" min="300" max="1200" value="1200" step="50" oninput="filterByPrice(this.value)">
+      </div>
+    </div>
+
+    <div class="results-hdr">
+      <div class="results-count"><span id="resultCount">13</span> hostels found</div>
+      <div class="sort-btn" onclick="toggleSort()">⇅ <span id="sortLabel">Rating</span></div>
+    </div>
+    <div class="hostels-grid" id="hostelsGrid"></div>
   </div>
 
-  <div class="section">
-    <h2>Team Overview</h2>
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num">#1</div>
-        <div class="stat-label">TEST RANKING</div>
+  <div class="tab-content" id="tab-saved">
+    <div class="tab-pg">
+      <div class="tab-pg-hdr">
+        <div class="tab-title">Saved ❤️</div>
+        <div class="see-all" onclick="clearWishlist()">Clear all</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num">#2</div>
-        <div class="stat-label">ODI RANKING</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">#4</div>
-        <div class="stat-label">T20 RANKING</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">6</div>
-        <div class="stat-label">ICC TITLES</div>
-      </div>
+      <div id="savedGrid"></div>
     </div>
-
-    <h2>Top Batters</h2>
-    <div class="player-card">
-      <div class="player-num">🏏</div>
-      <div class="player-info">
-        <h3>Rohit Sharma</h3>
-        <p>Captain · Right Hand Bat</p>
-      </div>
-      <div class="player-stat">
-        <div class="num">10,000+</div>
-        <div class="label">ODI RUNS</div>
-      </div>
-    </div>
-    <div class="player-card">
-      <div class="player-num">🏏</div>
-      <div class="player-info">
-        <h3>Virat Kohli</h3>
-        <p>Right Hand Bat · Legend</p>
-      </div>
-      <div class="player-stat">
-        <div class="num">13,000+</div>
-        <div class="label">ODI RUNS</div>
-      </div>
-    </div>
-    <div class="player-card">
-      <div class="player-num">🏏</div>
-      <div class="player-info">
-        <h3>Shubman Gill</h3>
-        <p>Right Hand Bat · Future Star</p>
-      </div>
-      <div class="player-stat">
-        <div class="num">3,000+</div>
-        <div class="label">ODI RUNS</div>
-      </div>
-    </div>
-
-    <h2 style="margin-top:24px">Top Bowlers</h2>
-    <div class="player-card">
-      <div class="player-num">🎳</div>
-      <div class="player-info">
-        <h3>Jasprit Bumrah</h3>
-        <p>Right Arm Fast · #1 Bowler</p>
-      </div>
-      <div class="player-stat">
-        <div class="num">150+</div>
-        <div class="label">ODI WICKETS</div>
-      </div>
-    </div>
-    <div class="player-card">
-      <div class="player-num">🎳</div>
-      <div class="player-info">
-        <h3>Ravindra Jadeja</h3>
-        <p>Left Arm Spin · All Rounder</p>
-      </div>
-      <div class="player-stat">
-        <div class="num">200+</div>
-        <div class="label">ODI WICKETS</div>
-      </div>
-    </div>
-
-    <h2 style="margin-top:24px">Recent Matches</h2>
-    <div class="match-card">
-      <div class="match-header">
-        <div class="match-vs">India vs Australia</div>
-        <span class="match-result win">WON</span>
-      </div>
-      <div class="match-detail">ODI · By 6 wickets · January 2025</div>
-    </div>
-    <div class="match-card">
-      <div class="match-header">
-        <div class="match-vs">India vs England</div>
-        <span class="match-result win">WON</span>
-      </div>
-      <div class="match-detail">T20 · By 7 runs · February 2025</div>
-    </div>
-    <div class="match-card">
-      <div class="match-header">
-        <div class="match-vs">India vs South Africa</div>
-        <span class="match-result loss">LOST</span>
-      </div>
-      <div class="match-detail">TEST · By 2 wickets · March 2025</div>
-    </div>
-
   </div>
 
+  <div class="tab-content" id="tab-bookings">
+    <div class="tab-pg">
+      <div class="tab-pg-hdr" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Your adventures</div>
+        <div class="tab-title">My Bookings 🎫</div>
+      </div>
+      <div id="bookingsContainer"></div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="tab-profile">
+    <div class="profile-hdr">
+      <div class="profile-av">🧑‍💻</div>
+      <div class="profile-name">Anuj</div>
+      <div class="profile-email">anuj@bca.student • Bangalore</div>
+    </div>
+    <div class="profile-stats">
+      <div class="p-stat"><div class="p-stat-num" id="profileTrips">0</div><div class="p-stat-lbl">Trips</div></div>
+      <div class="p-stat"><div class="p-stat-num" id="profileSaved">0</div><div class="p-stat-lbl">Saved</div></div>
+      <div class="p-stat"><div class="p-stat-num">⭐4.9</div><div class="p-stat-lbl">Rating</div></div>
+    </div>
+    <div class="profile-menu">
+      <div class="menu-item"><div class="menu-ico">🪪</div><div class="menu-txt"><div class="menu-title">Edit Profile</div><div class="menu-sub">Update your details</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">🔔</div><div class="menu-txt"><div class="menu-title">Notifications</div><div class="menu-sub">Deals & booking updates</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">💳</div><div class="menu-txt"><div class="menu-title">Payment Methods</div><div class="menu-sub">UPI, Cards, Net Banking</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">🤝</div><div class="menu-txt"><div class="menu-title">Refer & Earn</div><div class="menu-sub">₹200 credit per friend</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">🛟</div><div class="menu-txt"><div class="menu-title">Help & Support</div><div class="menu-sub">24/7 chat support</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item" style="border-color:rgba(239,68,68,0.2);">
+        <div class="menu-ico" style="background:rgba(239,68,68,0.1);">🚪</div>
+        <div class="menu-txt"><div class="menu-title" style="color:var(--red);">Sign Out</div><div class="menu-sub">See you soon 👋</div></div>
+        <span class="menu-arr">›</span>
+      </div>
+    </div>
+    <div style="height:40px;"></div>
+  </div>
+
+</div>
+
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="switchTab('explore',this)"><div class="nav-icon">🔍</div><span class="nav-lbl">EXPLORE</span></div>
+  <div class="nav-item" onclick="switchTab('saved',this)"><div class="nav-icon">❤️</div><span class="nav-lbl">SAVED</span><div class="nav-badge" id="savedBadge" style="display:none">0</div></div>
+  <div class="nav-item" onclick="switchTab('bookings',this)"><div class="nav-icon">🎫</div><span class="nav-lbl">TRIPS</span><div class="nav-badge" id="bookingsBadge" style="display:none">0</div></div>
+  <div class="nav-item" onclick="switchTab('profile',this)"><div class="nav-icon">👤</div><span class="nav-lbl">PROFILE</span></div>
+</div>
+
+<div class="modal-ov" id="detailOv" onclick="ovClick(event,'detailOv')">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <div class="modal-hero">
+      <div class="modal-hero-bg" id="mHeroBg"></div>
+      <button class="modal-close" onclick="closeModal('detailOv')">✕</button>
+      <div class="modal-hero-wish" id="mHeroWish" onclick="heroWish()">🤍</div>
+      <div class="modal-hero-info">
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-loc" id="mLoc"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-stats">
+        <div class="mstat"><div class="mstat-val" id="mRating"></div><div class="mstat-lbl">Rating</div></div>
+        <div class="mstat"><div class="mstat-val" id="mReviews"></div><div class="mstat-lbl">Reviews</div></div>
+        <div class="mstat"><div class="mstat-val" id="mPrice"></div><div class="mstat-lbl">Per Night</div></div>
+      </div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="modal-sec-title">Amenities</div>
+      <div class="amen-grid" id="mAmenities"></div>
+      <div class="modal-sec-title">Guest Reviews</div>
+      <div class="reviews-list" id="mReviews2"></div>
+      <div class="modal-sec-title">Location</div>
+      <div class="map-wrap">
+        <div class="map-grid"></div>
+        <div class="map-pin">📍</div>
+        <div class="map-lbl" id="mMapLbl"></div>
+      </div>
+      <div class="booking-bar">
+        <div class="bk-price-row">
+          <div class="bk-price" id="bkPrice">₹599 <sub>/night</sub></div>
+          <div class="bk-total">2 nights: <strong id="bkTotal">₹1,198</strong></div>
+        </div>
+        <button class="book-now-btn" onclick="bookNow()">🏠 Book Now — Instant Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-ov" id="confirmOv">
+  <div class="confetti-wrap" id="confettiWrap"></div>
+  <div class="confirm-icon">✅</div>
+  <div class="confirm-title">Booking Confirmed!</div>
+  <div class="confirm-sub">You're all set. Get ready for an amazing stay! 🎉</div>
+  <div class="confirm-card">
+    <div class="confirm-row"><span class="ck">HOSTEL</span><span class="cv" id="cfHostel">—</span></div>
+    <div class="confirm-row"><span class="ck">CITY</span><span class="cv" id="cfCity">—</span></div>
+    <div class="confirm-row"><span class="ck">GUESTS</span><span class="cv" id="cfGuests">—</span></div>
+    <div class="confirm-row"><span class="ck">TOTAL</span><span class="cv" id="cfTotal">—</span></div>
+    <div class="confirm-row"><span class="ck">BOOKING ID</span><span class="cv id" id="cfId">—</span></div>
+  </div>
+  <button class="confirm-btn" onclick="closeConfirm()">🎊 Awesome!</button>
+</div>
+
+<script>
+const HOSTELS = [
+  { id:1, name:"The Backpacker's Den", city:"Bangalore", area:"Koramangala", emoji:"🌆", gradient:"linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)", price:599, rating:4.8, reviews:312, badge:"Top Rated", badgeType:"", amenities:["wifi","food","ac","laundry","gym"], desc:"Bangalore's most loved student hostel, right in the heart of Koramangala. Walk to cafes, startups, and everything the city has to offer. Community events every Friday night.", reviewsList:[{name:"Priya S.",emoji:"👩",date:"Mar 2025",stars:5,text:"Absolutely loved it! WiFi was blazing fast, community vibe was incredible. Made friends for life here."},{name:"Rohan K.",emoji:"👨",date:"Feb 2025",stars:5,text:"Perfect for anyone interning in Koramangala. Clean rooms, great food, genuinely helpful staff."},{name:"Anika M.",emoji:"👩‍🎓",date:"Jan 2025",stars:4,text:"Really good hostel overall. Friday social nights are brilliant. Minor noise issues but nothing serious."}] },
+  { id:13, name:"Jain Campus Stay", city:"Bangalore", area:"Jayanagar, Jain University", emoji:"🏫", gradient:"linear-gradient(135deg,#0a1520,#0d2035,#0a1a40)", price:529, rating:4.6, reviews:189, badge:"Study Zone", badgeType:"", amenities:["wifi","ac","food","laundry","gym"], desc:"The go-to hostel for Jain University students. Located just 5 minutes from the Jayanagar campus, with a dedicated 24/7 study lounge, super-fast WiFi, and a thriving community of 200+ Jain University residents. Affordable, clean, and perfectly located for campus life.", reviewsList:[{name:"Ankit J.",emoji:"🧑‍🎓",date:"Apr 2025",stars:5,text:"As a Jain University student this place is a blessing. 5-minute walk to campus, great food, fast WiFi. Cannot ask for more."},{name:"Divya S.",emoji:"👩‍💻",date:"Mar 2025",stars:4,text:"Study lounge open 24/7 is amazing during exams. Clean rooms, helpful staff. Highly recommended for Jain students."},{name:"Rahul M.",emoji:"👨‍🎓",date:"Feb 2025",stars:5,text:"Best student accommodation near Jain University. The community here is wonderful — made friends from all over India."}] },
+  { id:2, name:"GoaVibes Hostel", city:"Goa", area:"Anjuna Beach", emoji:"🏖️", gradient:"linear-gradient(135deg,#1a2a1a,#0d3321,#0a4a2e)", price:799, rating:4.9, reviews:487, badge:"🔥 HOT", badgeType:"hot", amenities:["wifi","pool","food","ac","parking"], desc:"Wake up 200 meters from Anjuna Beach. GoaVibes is where backpackers, remote workers, and beach lovers collide. Rooftop yoga at sunrise, beach bonfires at night.", reviewsList:[{name:"Dev T.",emoji:"🧑",date:"Apr 2025",stars:5,text:"This place changed my life! The rooftop sunsets, the pool, the people — 10/10 would stay forever."},{name:"Zara Q.",emoji:"👩‍💻",date:"Mar 2025",stars:5,text:"Perfect for remote work. Fast WiFi, great vibe, and the beach is a 2-minute walk."},{name:"Arjun P.",emoji:"🧔",date:"Feb 2025",stars:5,text:"GoaVibes is THE hostel in Anjuna. Don't even look anywhere else. Bonfire nights are legendary."}] },
+  { id:3, name:"Mumbai Central Beds", city:"Mumbai", area:"Bandra West", emoji:"🌃", gradient:"linear-gradient(135deg,#1a0a0a,#2d1515,#3d1010)", price:699, rating:4.6, reviews:228, badge:"NEW", badgeType:"newbadge", amenities:["wifi","ac","food","gym","laundry"], desc:"Modern pods in the heart of Bandra West. Minutes from Linking Road, sea face, and the best street food in Mumbai. Perfect for college students and young professionals.", reviewsList:[{name:"Sneha R.",emoji:"👩",date:"Apr 2025",stars:5,text:"The pod-style beds are so cool! Great privacy, premium amenities. Bandra is the best location in Mumbai."},{name:"Vihaan A.",emoji:"👦",date:"Mar 2025",stars:4,text:"Super clean and modern. Location is unbeatable. Can get noisy on weekends but staff handles it."},{name:"Meera J.",emoji:"👩‍🦱",date:"Feb 2025",stars:5,text:"Loved every minute. Staff went above and beyond. Will definitely be back!"}] },
+  { id:4, name:"Delhi Digs", city:"Delhi", area:"Paharganj", emoji:"🏛️", gradient:"linear-gradient(135deg,#2a1a0a,#3d2a10,#4a3015)", price:449, rating:4.4, reviews:156, badge:"Budget Pick", badgeType:"", amenities:["wifi","food","parking","laundry"], desc:"The best budget stay in Delhi, steps from New Delhi Railway Station. Classic backpacker hub with a rooftop terrace overlooking the city. Great for solo travellers.", reviewsList:[{name:"Kabir S.",emoji:"🧑‍🎤",date:"Jan 2025",stars:4,text:"Super affordable and central. The rooftop is amazing for Delhi sunsets. Perfect budget option."},{name:"Tanvi M.",emoji:"👩",date:"Dec 2024",stars:5,text:"Met some amazing people here. Staff knows everything about Delhi sightseeing."},{name:"Nikhil D.",emoji:"👨‍🎓",date:"Nov 2024",stars:4,text:"Solid budget hostel. Basic but clean. Perfect base to explore Delhi."}] },
+  { id:5, name:"Rishikesh Retreat", city:"Rishikesh", area:"Laxman Jhula", emoji:"🏔️", gradient:"linear-gradient(135deg,#0a1a2a,#102a3a,#0d3d50)", price:549, rating:4.7, reviews:203, badge:"Top Rated", badgeType:"", amenities:["wifi","food","laundry","pet","yoga"], desc:"A spiritual oasis by the Ganga. Rishikesh Retreat blends hostel life with yoga, meditation, and Himalayan adventure. The river sound is your natural alarm clock.", reviewsList:[{name:"Om S.",emoji:"🧘",date:"Mar 2025",stars:5,text:"The most peaceful hostel I've ever stayed in. Morning yoga by the Ganga is unforgettable."},{name:"Prachi N.",emoji:"👩‍🦰",date:"Feb 2025",stars:5,text:"Life-changing stay. The energy here is incredible. Already booked my return trip!"},{name:"Aarav T.",emoji:"🧑",date:"Jan 2025",stars:4,text:"Beautiful location, great people. The Ganga aarti at night is absolutely magical."}] },
+  { id:6, name:"Manali Snow Lodge", city:"Manali", area:"Old Manali Village", emoji:"❄️", gradient:"linear-gradient(135deg,#0a0f1a,#0d1833,#0a1f3d)", price:649, rating:4.8, reviews:178, badge:"🔥 HOT", badgeType:"hot", amenities:["wifi","food","parking","laundry","fireplace"], desc:"A cozy mountain lodge in Old Manali, surrounded by apple orchards and snow peaks. The fireplace common room is the heart — stories, guitars, and chai all night. Pure magic in winter.", reviewsList:[{name:"Ishaan V.",emoji:"🧑‍🏔️",date:"Dec 2024",stars:5,text:"Woke up to snow-covered mountains every morning. The fireplace room is magical. Best stay of my life!"},{name:"Diya K.",emoji:"👩‍🦳",date:"Jan 2025",stars:5,text:"The warmth of this place — literal and figurative — is unmatched."},{name:"Sameer R.",emoji:"👨‍🦱",date:"Feb 2025",stars:4,text:"Perfect for Manali in winter. Warm, cozy, great food. Trekking recommendations are spot-on."}] },
+  { id:7, name:"Pune Student Hub", city:"Pune", area:"Kothrud", emoji:"🎓", gradient:"linear-gradient(135deg,#1a1a0a,#2a2a0f,#353510)", price:499, rating:4.5, reviews:134, badge:"NEW", badgeType:"newbadge", amenities:["wifi","ac","gym","laundry","food"], desc:"Built for students, by students. Near Savitribai Phule Pune University and all major IT parks. Study rooms, high-speed internet, and a community of ambitious peers.", reviewsList:[{name:"Aditi P.",emoji:"👩‍💻",date:"Apr 2025",stars:5,text:"Perfect for my Pune internship! Clean, affordable, great internet. Study room is a lifesaver."},{name:"Karan M.",emoji:"👨‍💼",date:"Mar 2025",stars:4,text:"Great community of students and professionals. Met my startup co-founder here!"},{name:"Shruti L.",emoji:"👩‍🎓",date:"Feb 2025",stars:5,text:"Best student accommodation in Kothrud. Staff understands student schedules."}] },
+  { id:8, name:"Pink City Pods", city:"Jaipur", area:"Old City Quarter", emoji:"🏰", gradient:"linear-gradient(135deg,#2a0a1a,#3d1030,#4a0d3a)", price:579, rating:4.7, reviews:219, badge:"Top Rated", badgeType:"", amenities:["wifi","food","ac","pool","parking"], desc:"Sleeping pods inspired by Rajasthani architecture, steps from Hawa Mahal and Johari Bazaar. Rooftop pool with panoramic views of the Pink City.", reviewsList:[{name:"Ananya G.",emoji:"👸",date:"Mar 2025",stars:5,text:"The pod design is stunning — actual Rajasthani motifs on the walls! Rooftop pool view is insane."},{name:"Rahul S.",emoji:"🤴",date:"Feb 2025",stars:5,text:"Loved the fusion of heritage and modern. Walking distance to everything in Old Jaipur."},{name:"Kriti B.",emoji:"👩",date:"Jan 2025",stars:4,text:"Beautiful hostel, great location. Worth every rupee for the unique experience."}] },
+  { id:9, name:"Cubbon Bunks", city:"Bangalore", area:"MG Road", emoji:"🌿", gradient:"linear-gradient(135deg,#0a1a0a,#0f2a0f,#0a3a0a)", price:649, rating:4.6, reviews:167, badge:"", badgeType:"", amenities:["wifi","ac","food","gym","laundry","parking"], desc:"Premium bunks right on MG Road, a stone's throw from Cubbon Park. Start your morning with a park run, end it with rooftop dinner overlooking the city.", reviewsList:[{name:"Vivek N.",emoji:"🧑‍💻",date:"Apr 2025",stars:5,text:"Best location in Bangalore! MG Road metro 5 mins away. Rooftop is my new office."},{name:"Pooja S.",emoji:"👩‍🦲",date:"Mar 2025",stars:4,text:"Morning runs in Cubbon Park while staying here are something else. Clean, well-managed."},{name:"Dhruv T.",emoji:"👨",date:"Feb 2025",stars:5,text:"The staff here are genuinely wonderful. Made the whole experience feel like home."}] },
+  { id:10, name:"Colaba Connect", city:"Mumbai", area:"Colaba Causeway", emoji:"🌊", gradient:"linear-gradient(135deg,#0a0a1a,#10102a,#0a0d35)", price:849, rating:4.9, reviews:534, badge:"🔥 HOT", badgeType:"hot", amenities:["wifi","ac","food","gym","laundry","pool"], desc:"Iconic location on Colaba Causeway, walking distance from Gateway of India. Boutique hostel with rooftop infinity pool overlooking the Arabian Sea.", reviewsList:[{name:"Aditya R.",emoji:"🧑",date:"Apr 2025",stars:5,text:"Rooftop pool with Gateway of India in the background... I have no words. Just go."},{name:"Sara K.",emoji:"👩‍🦱",date:"Mar 2025",stars:5,text:"Pricey but worth every rupee. The breakfast view alone is worth the cost."},{name:"Mihir J.",emoji:"👨‍💼",date:"Feb 2025",stars:5,text:"Best hostel I've stayed in globally. Service, location, facilities — all world-class."}] },
+  { id:11, name:"Cafe & Crash", city:"Goa", area:"Palolem Beach", emoji:"🌴", gradient:"linear-gradient(135deg,#1a2a0a,#253a0f,#1a3a0a)", price:699, rating:4.7, reviews:298, badge:"", badgeType:"", amenities:["wifi","food","pool","pet","laundry"], desc:"Where the beach meets the kitchen. Cafe & Crash is Palolem's most social hostel — a ground-floor cafe, hammocks on the balcony, and the beach at your doorstep.", reviewsList:[{name:"Naina P.",emoji:"👩",date:"Apr 2025",stars:5,text:"The cafe makes the best smoothie bowls! Spent a week working from the hammock. Bliss."},{name:"Aryan D.",emoji:"🧑",date:"Mar 2025",stars:5,text:"Perfect Palolem base camp. Palolem beach at dawn is an experience."},{name:"Tara S.",emoji:"👩‍🦱",date:"Feb 2025",stars:4,text:"Very social hostel, great for solo travelers. Group beach trips are awesome."}] },
+  { id:12, name:"Indiranagar Inn", city:"Bangalore", area:"100 Feet Road", emoji:"🍻", gradient:"linear-gradient(135deg,#1a0a2a,#2a1040,#1a0a3a)", price:749, rating:4.8, reviews:245, badge:"Top Rated", badgeType:"", amenities:["wifi","ac","food","gym","laundry","parking"], desc:"The social heart of Bangalore. Steps from 100 Feet Road — the city's most vibrant dining and nightlife street. Amazing community, weekly pub crawls, daily rooftop socials.", reviewsList:[{name:"Rishab K.",emoji:"🧑‍🎸",date:"Apr 2025",stars:5,text:"If you want to experience Bangalore's social scene, this is THE place."},{name:"Siya G.",emoji:"👩‍🎤",date:"Mar 2025",stars:5,text:"The weekly pub crawls with the hostel crew are so fun! Great way to explore Indiranagar."},{name:"Raj V.",emoji:"👨‍💻",date:"Feb 2025",stars:4,text:"Perfect for digital nomads. Fast WiFi, co-working space, great cafes within walking distance."}] }
+];
+
+const AMEN_MAP={wifi:{emoji:"📶",name:"Free WiFi"},food:{emoji:"🍛",name:"Meals Incl."},ac:{emoji:"❄️",name:"AC Rooms"},pool:{emoji:"🏊",name:"Pool"},gym:{emoji:"💪",name:"Gym"},laundry:{emoji:"👕",name:"Laundry"},parking:{emoji:"🚗",name:"Parking"},pet:{emoji:"🐾",name:"Pet Friendly"},yoga:{emoji:"🧘",name:"Yoga"},fireplace:{emoji:"🔥",name:"Fireplace"}};
+
+let filters={city:'All',amenities:[],maxPrice:1200};
+let wishlist=JSON.parse(localStorage.getItem('sn_wish')||'[]');
+let bookings=JSON.parse(localStorage.getItem('sn_book')||'[]');
+let currentH=null,guests=2,sortBy='rating',sortIdx=0;
+const SORTS=[{key:'rating',lbl:'Rating'},{key:'price_low',lbl:'Price ↑'},{key:'price_high',lbl:'Price ↓'}];
+
+function getStars(r){const f=Math.floor(r);return'★'.repeat(f)+(r%1>=0.5?'½':'')+'☆'.repeat(5-f-(r%1>=0.5?1:0));}
+function fmtPrice(n){return'₹'+n.toLocaleString('en-IN');}
+function genId(){return'SN'+Math.random().toString(36).substr(2,6).toUpperCase();}
+
+function getFiltered(){let list=[...HOSTELS];if(filters.city!=='All')list=list.filter(h=>h.city===filters.city);if(filters.amenities.length)list=list.filter(h=>filters.amenities.every(a=>h.amenities.includes(a)));list=list.filter(h=>h.price<=filters.maxPrice);if(sortBy==='rating')list.sort((a,b)=>b.rating-a.rating);else if(sortBy==='price_low')list.sort((a,b)=>a.price-b.price);else list.sort((a,b)=>b.price-a.price);return list;}
+function filterCity(city,el){filters.city=city;document.querySelectorAll('.city-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderCards(getFiltered());}
+function toggleFilter(amenity,el){el.classList.toggle('active');const i=filters.amenities.indexOf(amenity);i===-1?filters.amenities.push(amenity):filters.amenities.splice(i,1);renderCards(getFiltered());}
+function filterByPrice(val){filters.maxPrice=parseInt(val);document.getElementById('priceDisplay').textContent=`₹${val}`;const pct=((val-300)/(1200-300))*100;document.getElementById('priceSlider').style.background=`linear-gradient(to right,var(--amber) ${pct}%,var(--faint) ${pct}%)`;renderCards(getFiltered());}
+function resetFilters(){filters={city:'All',amenities:[],maxPrice:1200};document.querySelectorAll('.filter-chip,.city-chip').forEach(c=>c.classList.remove('active'));document.querySelector('.city-chip').classList.add('active');const sl=document.getElementById('priceSlider');sl.value=1200;document.getElementById('priceDisplay').textContent='₹1200';sl.style.background='linear-gradient(to right,var(--amber) 100%,var(--faint) 100%)';renderCards(getFiltered());showToast('🔄','Filters reset');}
+function toggleSort(){sortIdx=(sortIdx+1)%SORTS.length;sortBy=SORTS[sortIdx].key;document.getElementById('sortLabel').textContent=SORTS[sortIdx].lbl;renderCards(getFiltered());}
+function handleSearch(){const q=document.getElementById('searchInput').value.toLowerCase().trim();if(!q){renderCards(getFiltered());return;}renderCards(HOSTELS.filter(h=>h.name.toLowerCase().includes(q)||h.city.toLowerCase().includes(q)||h.area.toLowerCase().includes(q)));}
+
+function cardHTML(h,i){return`<div class="hostel-card" style="animation-delay:${i*0.065}s" onclick="openDetail(${h.id})"><div class="card-img"><div class="card-img-bg" style="background:${h.gradient}">${h.emoji}</div>${h.badge?`<div class="card-badge ${h.badgeType}">${h.badge}</div>`:''}<div class="card-wish ${wishlist.includes(h.id)?'saved':''}" onclick="toggleWish(event,${h.id})">${wishlist.includes(h.id)?'❤️':'🤍'}</div><div class="card-price-ov"><div class="price-num">${fmtPrice(h.price)}</div><div class="price-per">per night</div></div></div><div class="card-body"><div class="card-loc">📍 ${h.area}, ${h.city}</div><div class="card-name">${h.name}</div><div class="card-rating"><span class="stars">${getStars(h.rating)}</span><span class="r-num">${h.rating}</span><span class="r-count">(${h.reviews} reviews)</span></div><div class="card-amens">${h.amenities.slice(0,4).map(a=>`<span class="amen-badge">${AMEN_MAP[a]?.emoji||''} ${AMEN_MAP[a]?.name||a}</span>`).join('')}</div><div class="card-footer"><div class="avail"><div class="avail-dot"></div> Available Now</div><button class="view-btn" onclick="openDetail(${h.id});event.stopPropagation()">View Details</button></div></div></div>`;}
+
+function renderCards(list){const g=document.getElementById('hostelsGrid');document.getElementById('resultCount').textContent=list.length;if(!list.length){g.innerHTML=`<div class="empty-state"><div class="empty-em">🔍</div><div class="empty-title">No hostels found</div><div class="empty-sub">Try adjusting your filters or search a different city.</div></div>`;return;}g.innerHTML=list.map((h,i)=>cardHTML(h,i)).join('');}
+function renderFeatured(){const top=[...HOSTELS].sort((a,b)=>b.rating-a.rating).slice(0,5);document.getElementById('featuredStrip').innerHTML=top.map(h=>`<div class="featured-card" onclick="openDetail(${h.id})" style="background:${h.gradient}"><div class="fc-bg">${h.emoji}</div><div class="fc-info"><div class="fc-name">${h.name}</div><div class="fc-city">📍 ${h.city} · ⭐${h.rating}</div></div></div>`).join('');}
+function toggleWish(e,id){e.stopPropagation();const i=wishlist.indexOf(id);i===-1?(wishlist.push(id),showToast('❤️','Saved to Wishlist')):(wishlist.splice(i,1),showToast('💔','Removed from Wishlist'));localStorage.setItem('sn_wish',JSON.stringify(wishlist));updateBadges();renderCards(getFiltered());renderSaved();if(currentH)updateHeroWish();}
+function heroWish(){if(!currentH)return;toggleWish({stopPropagation:()=>{}},currentH.id);}
+function updateHeroWish(){const el=document.getElementById('mHeroWish');if(el)el.textContent=wishlist.includes(currentH?.id)?'❤️':'🤍';}
+function clearWishlist(){wishlist=[];localStorage.setItem('sn_wish',JSON.stringify(wishlist));updateBadges();renderSaved();showToast('🗑️','Wishlist cleared');}
+function renderSaved(){const g=document.getElementById('savedGrid');const saved=HOSTELS.filter(h=>wishlist.includes(h.id));if(!saved.length){g.innerHTML=`<div class="empty-state"><div class="empty-em">🤍</div><div class="empty-title">Nothing saved yet</div><div class="empty-sub">Tap the heart on any hostel to save it here.</div></div>`;return;}g.innerHTML=`<div class="hostels-grid">${saved.map((h,i)=>cardHTML(h,i)).join('')}</div>`;}
+function renderBookings(){const c=document.getElementById('bookingsContainer');if(!bookings.length){c.innerHTML=`<div class="empty-state"><div class="empty-em">🎫</div><div class="empty-title">No trips yet</div><div class="empty-sub">Your confirmed bookings will appear here.</div></div>`;return;}c.innerHTML=bookings.map(b=>`<div class="booking-card"><div class="bk-card-hdr"><div class="bk-thumb" style="background:${b.gradient}">${b.emoji}</div><div class="bk-info"><div class="bk-name">${b.name}</div><div class="bk-city">📍 ${b.city}</div></div><div class="bk-status s-confirmed">CONFIRMED</div></div><div class="bk-row"><div class="bk-col"><div class="bk-col-lbl">Guests</div><div class="bk-col-val">${b.guests} 👤</div></div><div class="bk-col"><div class="bk-col-lbl">Total</div><div class="bk-col-val">${b.total}</div></div><div class="bk-col"><div class="bk-col-lbl">Booking ID</div><div class="bk-col-val" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber)">${b.id}</div></div></div></div>`).join('');}
+function updateBadges(){const sb=document.getElementById('savedBadge'),bb=document.getElementById('bookingsBadge');sb.textContent=wishlist.length;sb.style.display=wishlist.length?'flex':'none';bb.textContent=bookings.length;bb.style.display=bookings.length?'flex':'none';document.getElementById('profileSaved').textContent=wishlist.length;document.getElementById('profileTrips').textContent=bookings.length;}
+
+function openDetail(id){
+  const h=HOSTELS.find(x=>x.id===id);currentH=h;
+  document.getElementById('mHeroBg').style.background=h.gradient;
+  document.getElementById('mHeroBg').textContent=h.emoji;
+  document.getElementById('mName').textContent=h.name;
+  document.getElementById('mLoc').textContent=`📍 ${h.area}, ${h.city}`;
+  document.getElementById('mRating').textContent=h.rating;
+  document.getElementById('mReviews').textContent=h.reviews;
+  document.getElementById('mPrice').textContent=fmtPrice(h.price);
+  document.getElementById('mDesc').textContent=h.desc;
+  document.getElementById('mMapLbl').textContent=`${h.area}, ${h.city}`;
+  updateHeroWish();
+  document.getElementById('mAmenities').innerHTML=h.amenities.map(a=>`<div class="amen-item"><div class="amen-em">${AMEN_MAP[a]?.emoji||'✓'}</div><div class="amen-nm">${AMEN_MAP[a]?.name||a}</div></div>`).join('');
+  document.getElementById('mReviews2').innerHTML=h.reviewsList.map(r=>`<div class="review-card"><div class="rv-hdr"><div class="reviewer"><div class="rv-avatar">${r.emoji}</div><div><div class="rv-name">${r.name}</div><div class="rv-date">${r.date}</div></div></div><div class="rv-stars">${'★'.repeat(r.stars)}</div></div><div class="rv-text">${r.text}</div></div>`).join('');
+  document.getElementById('bkPrice').innerHTML=`${fmtPrice(h.price)} <sub>/night</sub>`;
+  document.getElementById('bkTotal').textContent=fmtPrice(h.price*2);
+  document.getElementById('detailOv').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+function ovClick(e,id){if(e.target===document.getElementById(id))closeModal(id);}
+
+function bookNow(){
+  if(!currentH)return;const h=currentH;
+  const total=h.price*2*guests,bkId=genId();
+  bookings.unshift({id:bkId,name:h.name,city:`${h.area}, ${h.city}`,emoji:h.emoji,gradient:h.gradient,guests,total:fmtPrice(total)});
+  localStorage.setItem('sn_book',JSON.stringify(bookings));
+  document.getElementById('cfHostel').textContent=h.name;
+  document.getElementById('cfCity').textContent=`${h.area}, ${h.city}`;
+  document.getElementById('cfGuests').textContent=guests;
+  document.getElementById('cfTotal').textContent=fmtPrice(total);
+  document.getElementById('cfId').textContent=bkId;
+  closeModal('detailOv');
+  document.getElementById('confirmOv').classList.add('open');
+  spawnConfetti();updateBadges();renderBookings();
+}
+
+function closeConfirm(){document.getElementById('confirmOv').classList.remove('open');document.getElementById('confettiWrap').innerHTML='';showToast('🎉','Booking added to your trips!');}
+function spawnConfetti(){const wrap=document.getElementById('confettiWrap');wrap.innerHTML='';const colors=['#f59e0b','#10b981','#ef4444','#6ee7f7','#a78bfa','#fff'];for(let i=0;i<50;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'%';c.style.background=colors[Math.floor(Math.random()*colors.length)];c.style.animationDuration=(Math.random()*2+2)+'s';c.style.animationDelay=Math.random()*0.8+'s';c.style.width=(Math.random()*8+4)+'px';c.style.height=(Math.random()*8+4)+'px';c.style.borderRadius=Math.random()>0.5?'50%':'2px';wrap.appendChild(c);}}
+function switchTab(name,el){document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('tab-'+name).classList.add('active');el.classList.add('active');if(name==='saved')renderSaved();if(name==='bookings')renderBookings();window.scrollTo(0,0);}
+function chGuests(d){guests=Math.max(1,Math.min(8,guests+d));document.getElementById('guestCount').textContent=guests;}
+function showToast(ico,msg){const t=document.getElementById('toast');document.getElementById('toastIco').textContent=ico;document.getElementById('toastTxt').textContent=msg;t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2000);}
+
+(function init(){
+  const now=new Date(),t=new Date(now),d=new Date(now);
+  t.setDate(now.getDate()+1);d.setDate(now.getDate()+3);
+  const fmt=x=>x.toISOString().split('T')[0];
+  document.getElementById('checkin').value=fmt(t);
+  document.getElementById('checkout').value=fmt(d);
+  const hr=now.getHours();
+  document.querySelector('.hero-greeting').textContent=hr<12?'Good morning 🌤️':hr<17?'Good afternoon ☀️':'Good evening 🌙';
+  renderFeatured();renderCards(getFiltered());updateBadges();
+})();
+</script>
 </body>
 </html>
