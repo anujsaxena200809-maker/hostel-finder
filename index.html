@@ -2,1527 +2,888 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>StudyNest</title>
-<link rel="manifest" href="#">
-<meta name="theme-color" content="#0a0610">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StayNest — Real Bangalore Hostels</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --bg:#08060f;--surface:#0f0b1a;--card:#161028;--card2:#1c1535;
-  --purple:#8b5cf6;--purple-dim:rgba(139,92,246,0.12);--purple-border:rgba(139,92,246,0.3);
-  --purple-glow:rgba(139,92,246,0.4);
-  --pink:#ec4899;--cyan:#06b6d4;--amber:#f59e0b;
-  --green:#10b981;--green-dim:rgba(16,185,129,0.1);--green-border:rgba(16,185,129,0.3);
-  --red:#ef4444;--blue:#3b82f6;
-  --text:#f0ecff;--muted:rgba(240,236,255,0.45);--faint:rgba(240,236,255,0.05);
-  --border:rgba(139,92,246,0.15);--r:22px;--rs:14px;
+  --bg:#0d0c0a;--surface:#141210;--card:#1c1915;
+  --amber:#f59e0b;--amber-dim:rgba(245,158,11,0.1);--amber-border:rgba(245,158,11,0.22);
+  --green:#10b981;--red:#ef4444;--blue:#3b82f6;
+  --text:#f5f0e8;--muted:rgba(245,240,232,0.48);--faint:rgba(245,240,232,0.06);
+  --border:rgba(245,240,232,0.08);--r:20px;--rs:12px;
 }
 html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;overflow-y:auto;}
-
-/* AMBIENT BACKGROUND */
-body::before{
-  content:'';position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 80% 50% at 20% -10%,rgba(139,92,246,0.15) 0%,transparent 50%),
-    radial-gradient(ellipse 60% 40% at 80% 110%,rgba(236,72,153,0.1) 0%,transparent 50%),
-    radial-gradient(ellipse 40% 30% at 50% 50%,rgba(139,92,246,0.04) 0%,transparent 60%);
-  pointer-events:none;z-index:0;
-  animation:ambientShift 8s ease infinite alternate;
-}
-@keyframes ambientShift{
-  from{opacity:1;}to{opacity:0.7;}
-}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 10% 5%,rgba(245,158,11,0.05) 0%,transparent 55%),radial-gradient(ellipse 40% 30% at 90% 85%,rgba(245,158,11,0.04) 0%,transparent 55%);pointer-events:none;z-index:0;}
 
 /* SPLASH */
-#splash{
-  position:fixed;inset:0;background:var(--bg);z-index:300;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
-  animation:splashOut 0.6s ease 3.2s forwards;
-}
-.sp-rings{position:relative;width:120px;height:120px;margin-bottom:20px;}
-.sp-ring{position:absolute;border-radius:50%;border:2px solid transparent;animation:ringPulse 2s ease infinite;}
-.sp-ring1{inset:0;border-color:rgba(139,92,246,0.6);animation-delay:0s;}
-.sp-ring2{inset:10px;border-color:rgba(236,72,153,0.5);animation-delay:0.3s;}
-.sp-ring3{inset:20px;border-color:rgba(6,182,212,0.4);animation-delay:0.6s;}
-.sp-icon{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:44px;animation:iconPop 0.8s cubic-bezier(0.34,1.56,0.64,1) 0.4s both;
-}
-.sp-logo{
-  font-family:'Syne',sans-serif;font-size:42px;font-weight:800;
-  background:linear-gradient(135deg,#a78bfa,#ec4899);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  letter-spacing:-1px;animation:logoSlide 0.8s ease 0.8s both;
-}
-.sp-sub{
-  font-family:'JetBrains Mono',monospace;font-size:11px;
-  color:var(--muted);letter-spacing:4px;text-transform:uppercase;
-  margin-top:8px;animation:fadeUp 0.6s ease 1.2s both;
-}
-.sp-subjects{
-  display:flex;gap:12px;margin-top:28px;
-  animation:fadeUp 0.6s ease 1.6s both;
-}
-.sp-subject{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:12px;padding:8px 14px;
-  display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;
-}
-.sp-bar{
-  width:140px;height:3px;background:var(--faint);border-radius:2px;
-  margin-top:28px;overflow:hidden;animation:fadeUp 0.5s ease 2s both;
-}
-.sp-bar-fill{
-  height:100%;border-radius:2px;width:0;
-  background:linear-gradient(90deg,#8b5cf6,#ec4899);
-  animation:barFill 1s ease 2.1s forwards;
-}
+#splash{position:fixed;inset:0;background:var(--bg);z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;animation:splashOut 0.5s ease 2.9s forwards;}
+.sp-logo{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:700;color:var(--amber);letter-spacing:-3px;line-height:1;animation:spPop 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;}
+.sp-logo em{font-style:italic;font-weight:400;}
+.sp-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:4px;text-transform:uppercase;animation:fadeUp 0.7s ease 1s both;}
+.sp-track{width:130px;height:3px;background:var(--faint);border-radius:2px;margin-top:36px;overflow:hidden;animation:fadeUp 0.6s ease 1.3s both;}
+.sp-fill{height:100%;background:var(--amber);border-radius:2px;width:0;animation:fillBar 1.4s ease 1.4s forwards;}
+.sp-tag{margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:2px;animation:fadeUp 0.6s ease 2s both;}
 
-@keyframes ringPulse{0%,100%{transform:scale(1);opacity:0.8;}50%{transform:scale(1.08);opacity:0.4;}}
-@keyframes iconPop{from{opacity:0;transform:scale(0.5) rotate(-20deg);}to{opacity:1;transform:scale(1) rotate(0);}}
-@keyframes logoSlide{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes barFill{to{width:100%;}}
+@keyframes spPop{from{opacity:0;transform:scale(0.6);}to{opacity:1;transform:scale(1);}}
 @keyframes splashOut{to{opacity:0;pointer-events:none;}}
-@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-@keyframes popIn{0%{transform:scale(0);opacity:0;}70%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
-@keyframes fireDance{0%,100%{transform:scale(1) rotate(-3deg);}50%{transform:scale(1.1) rotate(3deg);}}
-@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
-@keyframes ringFill{from{stroke-dashoffset:251.3;}to{stroke-dashoffset:var(--target);}}
-@keyframes countUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
-@keyframes ripple{0%{transform:scale(0);opacity:0.4;}100%{transform:scale(4);opacity:0;}}
+@keyframes fillBar{to{width:100%;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes successPop{0%{transform:scale(0);opacity:0;}70%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+@keyframes confettiFall{from{transform:translateY(-20px) rotate(0deg);opacity:1;}to{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 
-/* ══════════════════════════
-   STATUS BAR
-══════════════════════════ */
-.status-bar{
-  position:sticky;top:0;z-index:80;
-  background:rgba(8,6,15,0.9);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  padding:14px 20px 12px;
-}
-.brand{
-  font-family:'Syne',sans-serif;font-size:24px;font-weight:800;
-  background:linear-gradient(135deg,#a78bfa,#ec4899);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.streak-pill{
-  display:flex;align-items:center;gap:6px;
-  background:linear-gradient(135deg,rgba(139,92,246,0.2),rgba(236,72,153,0.15));
-  border:1px solid var(--purple-border);border-radius:20px;
-  padding:6px 14px;font-size:13px;font-weight:700;color:#c4b5fd;
-  animation:fireDance 2s ease infinite;
-}
-.streak-pill span{font-family:'JetBrains Mono',monospace;}
+/* STATUS BAR */
+.status-bar{position:sticky;top:0;z-index:80;background:rgba(13,12,10,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;padding:12px 20px 10px;}
+.brand{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--amber);letter-spacing:-0.5px;}
+.brand em{font-style:italic;font-weight:400;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.hdr-btn{width:38px;height:38px;border-radius:12px;background:var(--faint);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;position:relative;transition:background 0.2s;}
+.hdr-btn:hover{background:var(--amber-dim);}
+.notif-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);}
 
-/* ══════════════════════════
-   APP
-══════════════════════════ */
-#app{position:relative;z-index:1;padding-bottom:90px;animation:fadeIn 0.5s ease 3.4s both;}
-.tab-content{display:none;animation:slideUp 0.35s ease both;}
-.tab-content.active{display:block;}
+/* APP */
+#app{position:relative;z-index:1;padding-bottom:100px;animation:fadeIn 0.4s ease 3.1s both;}
+.tab-content{display:none;}.tab-content.active{display:block;}
 
-/* ══════════════════════════
-   BOTTOM NAV
-══════════════════════════ */
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:rgba(15,11,26,0.95);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  border-top:1px solid var(--border);
-  display:flex;padding:8px 0 20px;
-}
-.nav-item{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  cursor:pointer;padding:4px 0;position:relative;
-  transition:transform 0.2s;
-}
-.nav-item:active{transform:scale(0.9);}
-.nav-icon-wrap{
-  width:48px;height:48px;border-radius:16px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;transition:all 0.3s;position:relative;
-}
-.nav-item.active .nav-icon-wrap{
-  background:linear-gradient(135deg,rgba(139,92,246,0.25),rgba(236,72,153,0.15));
-  border:1px solid var(--purple-border);
-  box-shadow:0 0 20px rgba(139,92,246,0.2);
-}
-.nav-lbl{
-  font-family:'JetBrains Mono',monospace;
-  font-size:9px;font-weight:600;color:var(--muted);letter-spacing:0.5px;
-  text-transform:uppercase;
-}
-.nav-item.active .nav-lbl{color:#c4b5fd;}
-.nav-glow{
-  position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);
-  width:24px;height:3px;border-radius:2px;
-  background:linear-gradient(90deg,#8b5cf6,#ec4899);
-  opacity:0;transition:opacity 0.3s;
-}
-.nav-item.active .nav-glow{opacity:1;}
+/* HERO */
+.hero{padding:24px 20px 0;}
+.hero-greeting{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1.1;letter-spacing:-0.5px;margin-bottom:6px;}
+.hero-title em{color:var(--amber);font-style:italic;}
+.hero-sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
 
-/* ══════════════════════════
-   CARDS & SHARED COMPONENTS
-══════════════════════════ */
-.glass-card{
-  background:linear-gradient(135deg,rgba(22,16,40,0.8),rgba(28,21,53,0.6));
-  border:1px solid var(--border);border-radius:var(--r);
-  backdrop-filter:blur(10px);position:relative;overflow:hidden;
-}
-.glass-card::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(139,92,246,0.4),transparent);
-}
+/* SEARCH BOX */
+.search-box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;margin-bottom:20px;}
+.s-row{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;transition:border-color 0.2s;}
+.s-row:focus-within{border-color:var(--amber-border);}
+.s-icon{font-size:18px;flex-shrink:0;}
+.s-input{background:none;border:none;outline:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;width:100%;}
+.s-input::placeholder{color:var(--muted);}
+.s-divider{height:1px;background:var(--border);}
+.s-dates{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.date-field{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px;transition:border-color 0.2s;}
+.date-field:focus-within{border-color:var(--amber-border);}
+.date-lbl{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.date-inp{background:none;border:none;outline:none;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;width:100%;cursor:pointer;color-scheme:dark;}
+.s-bottom{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;}
+.guests-field{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.guest-ctrls{display:flex;align-items:center;gap:12px;}
+.g-btn{width:28px;height:28px;border-radius:8px;background:var(--faint);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;line-height:1;}
+.g-btn:hover{background:var(--amber-dim);border-color:var(--amber-border);}
+#guestCount{font-size:17px;font-weight:700;min-width:22px;text-align:center;}
+.search-btn{background:var(--amber);color:var(--bg);border:none;border-radius:var(--rs);padding:12px 18px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;transition:opacity 0.2s,transform 0.1s;white-space:nowrap;}
+.search-btn:hover{opacity:0.88;}.search-btn:active{transform:scale(0.96);}
 
-.section-label{
-  font-family:'JetBrains Mono',monospace;font-size:11px;
-  color:var(--muted);letter-spacing:2px;text-transform:uppercase;
-  margin-bottom:4px;
-}
-.section-title{
-  font-family:'Syne',sans-serif;font-size:22px;font-weight:700;
-  margin-bottom:16px;
-}
+/* AREA CHIPS */
+.area-scroll{display:flex;gap:10px;overflow-x:auto;padding:0 20px 4px;scrollbar-width:none;margin-bottom:24px;}
+.area-scroll::-webkit-scrollbar{display:none;}
+.area-chip{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;flex-shrink:0;}
+.area-chip:hover{border-color:var(--amber-border);background:var(--amber-dim);}
+.area-chip.active{background:var(--amber);border-color:var(--amber);color:var(--bg);font-weight:700;}
 
-/* BUTTON RIPPLE */
-.ripple-btn{position:relative;overflow:hidden;}
-.ripple-btn::after{
-  content:'';position:absolute;border-radius:50%;
-  background:rgba(255,255,255,0.2);
-  width:100px;height:100px;
-  transform:scale(0);animation:none;
-  top:50%;left:50%;
-  margin-top:-50px;margin-left:-50px;
-}
-.ripple-btn:active::after{animation:ripple 0.4s ease;}
+/* FILTERS */
+.filters-section{padding:0 20px;margin-bottom:24px;}
+.section-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;}
+.see-all{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:1px;cursor:pointer;text-transform:uppercase;}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.filter-chip{padding:6px 13px;border-radius:20px;border:1px solid var(--border);background:var(--card);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;transition:all 0.2s;}
+.filter-chip:hover{border-color:var(--amber-border);}
+.filter-chip.active{background:var(--amber-dim);border-color:var(--amber-border);color:var(--amber);}
+.price-filter{margin-top:14px;padding:16px;background:var(--card);border-radius:var(--rs);border:1px solid var(--border);}
+.price-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.price-lbl{font-size:13px;color:var(--muted);}
+.price-val{font-size:14px;font-weight:700;color:var(--amber);font-family:'JetBrains Mono',monospace;}
+.price-slider{-webkit-appearance:none;width:100%;height:4px;background:linear-gradient(to right,var(--amber) 100%,var(--faint) 100%);border-radius:2px;outline:none;cursor:pointer;}
+.price-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--amber);cursor:pointer;box-shadow:0 0 0 4px rgba(245,158,11,0.18);}
 
-/* PRIMARY BUTTON */
-.btn-primary{
-  width:100%;padding:17px;
-  background:linear-gradient(135deg,#7c3aed,#a855f7);
-  color:#fff;border:none;border-radius:var(--rs);
-  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:all 0.2s;
-  box-shadow:0 4px 20px rgba(124,58,237,0.35);
-  position:relative;overflow:hidden;
-}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,0.45);}
-.btn-primary:active{transform:scale(0.97);}
-.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+/* RESULTS */
+.results-hdr{padding:0 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;}
+.results-count{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;}
+.results-count span{color:var(--amber);}
+.sort-btn{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:12px;background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.sort-btn:hover{border-color:var(--amber-border);}
 
-/* ADD BUTTON */
-.btn-add{
-  width:100%;padding:14px;
-  background:var(--faint);
-  border:1px dashed rgba(139,92,246,0.3);border-radius:var(--rs);
-  color:rgba(167,139,250,0.7);
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:all 0.2s;
-}
-.btn-add:hover{background:var(--purple-dim);border-color:var(--purple-border);color:#c4b5fd;}
-.btn-add:active{transform:scale(0.97);}
+/* HOSTEL CARDS */
+.hostels-grid{padding:0 20px;display:flex;flex-direction:column;gap:16px;}
+.hostel-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:transform 0.22s,border-color 0.22s,box-shadow 0.22s;animation:fadeUp 0.5s ease both;}
+.hostel-card:hover{transform:translateY(-4px);border-color:var(--amber-border);box-shadow:0 16px 50px rgba(0,0,0,0.45);}
+.card-img{height:190px;position:relative;overflow:hidden;}
+.card-img-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;transition:transform 0.4s;}
+.hostel-card:hover .card-img-bg{transform:scale(1.04);}
+.card-img-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(28,25,21,0.96) 100%);}
+.card-badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--amber);color:var(--bg);font-size:10px;font-weight:700;padding:4px 11px;border-radius:20px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;}
+.card-badge.verified{background:var(--green);color:#fff;}
+.card-badge.hot{background:var(--red);color:#fff;}
+.card-wish{position:absolute;top:12px;right:12px;z-index:2;width:36px;height:36px;border-radius:50%;background:rgba(13,12,10,0.68);backdrop-filter:blur(8px);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:all 0.2s;}
+.card-wish:hover{transform:scale(1.12);}
+.card-wish.saved{background:rgba(239,68,68,0.18);border-color:rgba(239,68,68,0.35);}
+.card-price-ov{position:absolute;bottom:14px;right:14px;z-index:2;background:rgba(13,12,10,0.82);backdrop-filter:blur(8px);border-radius:11px;padding:6px 12px;text-align:right;}
+.price-num{font-size:19px;font-weight:700;color:var(--amber);font-family:'JetBrains Mono',monospace;}
+.price-per{font-size:10px;color:var(--muted);}
+.card-body{padding:16px;}
+.card-loc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px;}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:6px;}
+.card-chain{font-size:11px;color:var(--amber);font-weight:600;margin-bottom:8px;font-family:'JetBrains Mono',monospace;}
+.card-rating{display:flex;align-items:center;gap:6px;margin-bottom:12px;}
+.stars{color:var(--amber);font-size:13px;}
+.r-num{font-weight:700;font-size:14px;color:var(--amber);}
+.r-count{font-size:12px;color:var(--muted);}
+.card-amens{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.amen-badge{padding:4px 10px;border-radius:20px;background:var(--faint);border:1px solid var(--border);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:4px;}
+.card-footer{display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);}
+.avail{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--green);font-weight:500;}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 1.5s ease infinite;}
+.view-btn{background:var(--amber);color:var(--bg);border:none;border-radius:10px;padding:8px 18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:opacity 0.2s;}
+.view-btn:hover{opacity:0.88;}
 
-/* EMPTY STATE */
-.empty-state{
-  display:flex;flex-direction:column;align-items:center;
-  padding:40px 20px;text-align:center;gap:10px;
-}
-.empty-em{font-size:48px;animation:bounce 2s ease infinite;}
-.empty-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;}
-.empty-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(20,18,16,0.96);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;padding:10px 0 18px;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:5px 0;position:relative;}
+.nav-icon{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;transition:all 0.2s;}
+.nav-item.active .nav-icon{background:var(--amber-dim);border:1px solid var(--amber-border);}
+.nav-lbl{font-size:10px;font-weight:500;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;}
+.nav-item.active .nav-lbl{color:var(--amber);}
+.nav-badge{position:absolute;top:2px;right:18%;background:var(--red);color:#fff;font-size:9px;font-weight:700;min-width:16px;height:16px;border-radius:8px;padding:0 4px;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);}
 
-/* ══════════════════════════
-   DASHBOARD
-══════════════════════════ */
-.dash-pad{padding:22px 20px 0;}
-.dash-greeting{
-  font-family:'JetBrains Mono',monospace;font-size:11px;
-  color:rgba(167,139,250,0.7);letter-spacing:2px;text-transform:uppercase;
-  margin-bottom:6px;
-}
-.dash-title{
-  font-family:'Syne',sans-serif;font-size:32px;font-weight:800;
-  line-height:1.1;margin-bottom:4px;
-}
-.dash-title .hi{
-  background:linear-gradient(135deg,#c4b5fd,#ec4899);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.dash-date{font-size:13px;color:var(--muted);margin-bottom:22px;}
-
-/* Streak Banner */
-.streak-banner{
-  margin:0 20px 20px;padding:22px;
-  background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(236,72,153,0.12),rgba(6,182,212,0.08));
-  border:1px solid var(--purple-border);border-radius:var(--r);
-  display:flex;align-items:center;gap:16px;position:relative;overflow:hidden;
-}
-.streak-banner::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,transparent,rgba(139,92,246,0.05));
-  pointer-events:none;
-}
-.streak-fire{font-size:52px;animation:fireDance 1.5s ease infinite;filter:drop-shadow(0 0 12px rgba(245,158,11,0.5));}
-.streak-num{
-  font-family:'Syne',sans-serif;font-size:48px;font-weight:800;
-  background:linear-gradient(135deg,#f59e0b,#f97316);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  line-height:1;
-}
-.streak-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,158,11,0.7);letter-spacing:2px;text-transform:uppercase;margin-top:2px;}
-.streak-best{font-size:12px;color:var(--muted);margin-top:4px;}
-.streak-right{margin-left:auto;text-align:right;}
-.streak-score-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.streak-score{
-  font-family:'Syne',sans-serif;font-size:32px;font-weight:800;
-  background:linear-gradient(135deg,#a78bfa,#ec4899);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-
-/* Progress Cards */
-.prog-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 20px;margin-bottom:22px;}
-.prog-card{
-  padding:16px;
-  background:linear-gradient(135deg,var(--card),var(--card2));
-  border:1px solid var(--border);border-radius:var(--rs);
-  position:relative;overflow:hidden;
-  transition:transform 0.2s;
-}
-.prog-card:active{transform:scale(0.97);}
-.prog-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,0.4),transparent);}
-.pc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.pc-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
-.pc-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;}
-.pc-num{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;margin-bottom:2px;}
-.pc-sub{font-size:11px;color:var(--muted);}
-.pc-bar{height:4px;background:var(--faint);border-radius:2px;margin-top:10px;overflow:hidden;}
-.pc-fill{height:100%;border-radius:2px;transition:width 0.8s cubic-bezier(0.34,1.56,0.64,1);}
-
-/* Habits Quick */
-.dash-section{padding:0 20px;margin-bottom:22px;}
-.dash-sec-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-.dash-sec-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;}
-.dash-sec-link{font-family:'JetBrains Mono',monospace;font-size:10px;color:#a78bfa;letter-spacing:1px;cursor:pointer;text-transform:uppercase;}
-
-.habit-quick{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rs);padding:14px 16px;
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:8px;cursor:pointer;
-  transition:all 0.2s;
-}
-.habit-quick:hover{border-color:var(--purple-border);}
-.habit-quick.done{
-  background:rgba(16,185,129,0.06);
-  border-color:rgba(16,185,129,0.25);
-}
-.habit-quick:active{transform:scale(0.98);}
-.hq-check{
-  width:30px;height:30px;border-radius:9px;
-  border:2px solid rgba(139,92,246,0.35);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;flex-shrink:0;transition:all 0.3s;
-}
-.habit-quick.done .hq-check{
-  background:var(--green);border-color:var(--green);
-  animation:popIn 0.3s ease;
-}
-.hq-name{font-size:14px;font-weight:600;flex:1;}
-.habit-quick.done .hq-name{text-decoration:line-through;color:var(--muted);}
-.hq-streak{font-family:'JetBrains Mono',monospace;font-size:11px;color:#f59e0b;}
-
-/* Quote */
-.quote-wrap{margin:0 20px 24px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);position:relative;overflow:hidden;}
-.quote-wrap::before{content:'"';position:absolute;top:-20px;left:8px;font-family:'Syne',sans-serif;font-size:120px;color:rgba(139,92,246,0.06);line-height:1;pointer-events:none;}
-.quote-body{font-family:'DM Sans',sans-serif;font-style:italic;font-size:16px;line-height:1.65;margin-bottom:10px;position:relative;z-index:1;}
-.quote-author{font-family:'JetBrains Mono',monospace;font-size:11px;color:#a78bfa;letter-spacing:1px;}
-
-/* ══════════════════════════
-   STUDY TAB
-══════════════════════════ */
-.study-pad{padding:22px 20px 0;}
-.page-title{font-family:'Syne',sans-serif;font-size:30px;font-weight:800;margin-bottom:4px;}
-.page-title .grad{
-  background:linear-gradient(135deg,#c4b5fd,#ec4899);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.page-sub{font-size:13px;color:var(--muted);margin-bottom:22px;}
-
-/* Timer */
-.timer-card{
-  margin:0 20px 20px;
-  background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(168,85,247,0.1));
-  border:1px solid var(--purple-border);border-radius:var(--r);
-  padding:24px;text-align:center;display:none;
-  box-shadow:0 0 40px rgba(139,92,246,0.15);
-}
-.timer-card.active{display:block;animation:slideUp 0.3s ease;}
-.timer-subj-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:#c4b5fd;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
-.timer-display{
-  font-family:'JetBrains Mono',monospace;font-size:58px;font-weight:600;
-  letter-spacing:6px;margin-bottom:20px;
-  background:linear-gradient(135deg,#e9d5ff,#f0abfc);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  filter:drop-shadow(0 0 20px rgba(139,92,246,0.4));
-}
-.timer-btns{display:flex;gap:10px;justify-content:center;}
-.btn-pause{
-  background:var(--faint);border:1px solid var(--border);color:var(--text);
-  border-radius:12px;padding:12px 22px;
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
-  cursor:pointer;transition:all 0.2s;
-}
-.btn-pause:hover{background:var(--purple-dim);}
-.btn-stop{
-  background:linear-gradient(135deg,#dc2626,#ef4444);
-  border:none;color:#fff;border-radius:12px;padding:12px 28px;
-  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;
-  cursor:pointer;transition:all 0.2s;
-  box-shadow:0 4px 14px rgba(239,68,68,0.3);
-}
-.btn-stop:hover{transform:translateY(-2px);}
-.btn-stop:active{transform:scale(0.97);}
-
-/* Session Items */
-.session-item{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rs);padding:14px;
-  display:flex;align-items:center;gap:12px;
-  margin-bottom:8px;
-  animation:slideUp 0.3s ease;
-  transition:border-color 0.2s;
-}
-.session-item:hover{border-color:var(--purple-border);}
-.session-line{width:4px;height:44px;border-radius:2px;flex-shrink:0;}
-.session-info{flex:1;}
-.session-subj{font-size:14px;font-weight:700;}
-.session-note{font-size:12px;color:var(--muted);margin-top:2px;}
-.session-dur{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#a78bfa;}
-.icon-btn{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:6px;border-radius:8px;transition:all 0.2s;}
-.icon-btn:hover{background:rgba(239,68,68,0.1);color:var(--red);}
-.icon-btn:active{transform:scale(0.85);}
-
-/* Subject Cards */
-.subject-card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rs);padding:16px;
-  display:flex;align-items:center;gap:14px;
-  margin-bottom:10px;
-  transition:all 0.2s;cursor:pointer;
-}
-.subject-card:hover{border-color:var(--purple-border);transform:translateX(4px);}
-.subject-card:active{transform:scale(0.98);}
-.subj-icon{
-  width:48px;height:48px;border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:24px;flex-shrink:0;
-}
-.subj-info{flex:1;}
-.subj-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:2px;}
-.subj-goal{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);}
-.subj-today{font-size:12px;font-weight:600;margin-top:4px;}
-.subj-bar{height:4px;background:var(--faint);border-radius:2px;margin-top:8px;overflow:hidden;}
-.subj-fill{height:100%;border-radius:2px;transition:width 0.6s cubic-bezier(0.34,1.56,0.64,1);}
-
-/* ══════════════════════════
-   HABITS TAB
-══════════════════════════ */
-.habits-pad{padding:22px 20px 0;}
-
-/* Completion Ring */
-.ring-banner{
-  margin:0 20px 20px;padding:20px;
-  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
-  display:flex;align-items:center;gap:20px;
-}
-.ring-svg{width:80px;height:80px;flex-shrink:0;position:relative;}
-.ring-svg svg{transform:rotate(-90deg);}
-.ring-pct{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#c4b5fd;
-}
-.ring-info{}
-.ring-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;}
-.ring-sub{font-size:13px;color:var(--muted);margin-top:4px;}
-
-/* Habit Items */
-.habit-item{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--r);padding:16px;margin-bottom:12px;
-  transition:all 0.3s;
-}
-.habit-item.done{
-  background:rgba(16,185,129,0.05);
-  border-color:rgba(16,185,129,0.2);
-}
-.habit-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.habit-check{
-  width:34px;height:34px;border-radius:10px;
-  border:2px solid rgba(139,92,246,0.4);
-  display:flex;align-items:center;justify-content:center;
-  font-size:17px;cursor:pointer;flex-shrink:0;
-  transition:all 0.3s;
-}
-.habit-item.done .habit-check{
-  background:linear-gradient(135deg,#059669,#10b981);
-  border-color:transparent;
-  animation:popIn 0.35s ease;
-  box-shadow:0 0 14px rgba(16,185,129,0.35);
-}
-.habit-emoji{font-size:28px;flex-shrink:0;}
-.habit-detail{flex:1;}
-.habit-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
-.habit-item.done .habit-name{text-decoration:line-through;color:var(--muted);}
-.habit-streaks{display:flex;align-items:center;gap:8px;margin-top:3px;}
-.h-streak{font-family:'JetBrains Mono',monospace;font-size:12px;color:#f59e0b;font-weight:600;}
-.h-best{font-size:11px;color:var(--muted);}
-
-/* 7-day grid */
-.habit-grid7{display:flex;gap:5px;margin-top:12px;}
-.g7-day{
-  flex:1;height:30px;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);
-  transition:all 0.3s;
-}
-.g7-day.done{background:linear-gradient(135deg,#059669,#10b981);color:#fff;box-shadow:0 0 8px rgba(16,185,129,0.3);}
-.g7-day.today{border:1px solid var(--purple-border);}
-.g7-day.missed{background:var(--faint);}
-
-/* ══════════════════════════
-   STATS TAB
-══════════════════════════ */
-.stats-pad{padding:22px 20px 0;}
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
-.stat-card{
-  background:var(--card);border:1px solid var(--border);border-radius:var(--rs);
-  padding:18px;text-align:center;
-  transition:transform 0.2s;
-}
-.stat-card:active{transform:scale(0.97);}
-.stat-num{
-  font-family:'Syne',sans-serif;font-size:38px;font-weight:800;line-height:1;
-  background:linear-gradient(135deg,#c4b5fd,#ec4899);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.stat-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:6px;}
-
-/* Breakdown */
-.breakdown-item{margin-bottom:16px;}
-.bd-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;}
-.bd-subj{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;}
-.bd-subj-dot{width:8px;height:8px;border-radius:50%;}
-.bd-hrs{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--muted);}
-.bd-bar{height:8px;background:var(--faint);border-radius:4px;overflow:hidden;}
-.bd-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(0.34,1.56,0.64,1);}
-
-/* Weekly dots */
-.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px;}
-.week-lbl-row{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px;}
-.week-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-align:center;}
-.week-dot{height:36px;border-radius:10px;background:var(--faint);transition:all 0.4s;}
-.week-dot.full{background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 0 8px rgba(16,185,129,0.25);}
-.week-dot.partial{background:rgba(16,185,129,0.35);}
-
-/* ══════════════════════════
-   MODALS
-══════════════════════════ */
-.modal-ov{
-  position:fixed;inset:0;z-index:160;
-  background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);
-  display:flex;align-items:flex-end;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity 0.3s;
-}
+/* DETAIL MODAL */
+.modal-ov{position:fixed;inset:0;z-index:160;background:rgba(0,0,0,0.78);backdrop-filter:blur(7px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
 .modal-ov.open{opacity:1;pointer-events:all;}
-.modal-sheet{
-  width:100%;max-width:480px;max-height:92vh;
-  background:linear-gradient(180deg,#1a1232,#0f0b1a);
-  border:1px solid var(--border);
-  border-radius:28px 28px 0 0;
-  overflow-y:auto;scrollbar-width:none;
-  transform:translateY(100%);
-  transition:transform 0.42s cubic-bezier(0.32,0.72,0,1);
-  padding-bottom:32px;
-}
+.modal-sheet{width:100%;max-width:480px;max-height:93vh;background:var(--surface);border-radius:28px 28px 0 0;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform 0.42s cubic-bezier(0.32,0.72,0,1);}
 .modal-sheet::-webkit-scrollbar{display:none;}
 .modal-ov.open .modal-sheet{transform:translateY(0);}
-.modal-handle{width:40px;height:4px;background:rgba(139,92,246,0.35);border-radius:2px;margin:16px auto 0;}
-.modal-hdr{padding:20px 20px 0;display:flex;justify-content:space-between;align-items:center;}
-.modal-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;}
-.modal-x{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;padding:4px;border-radius:8px;transition:all 0.2s;}
-.modal-x:hover{background:var(--faint);color:var(--text);}
-.modal-body{padding:20px;}
-.m-field{margin-bottom:16px;}
-.m-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px;}
-.m-input{
-  width:100%;background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rs);padding:14px 16px;color:var(--text);
-  font-family:'DM Sans',sans-serif;font-size:15px;outline:none;
-  transition:border-color 0.2s;
-}
-.m-input:focus{border-color:var(--purple-border);}
-.m-input::placeholder{color:var(--muted);}
+.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:16px auto 0;}
+.modal-hero{height:250px;position:relative;margin:16px 16px 0;border-radius:20px;overflow:hidden;}
+.modal-hero-bg{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:90px;}
+.modal-hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 25%,rgba(20,18,16,0.93) 100%);}
+.modal-close{position:absolute;top:12px;right:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(13,12,10,0.72);border:1px solid var(--border);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.modal-hero-wish{position:absolute;top:12px;left:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(13,12,10,0.72);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;}
+.modal-hero-info{position:absolute;bottom:16px;left:16px;right:16px;z-index:2;}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;letter-spacing:-0.5px;line-height:1.1;}
+.modal-chain{font-size:11px;color:var(--amber);font-family:'JetBrains Mono',monospace;letter-spacing:1px;margin-top:3px;}
+.modal-loc{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:3px;}
+.modal-body{padding:20px 20px 36px;}
+.modal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.mstat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;}
+.mstat-val{font-size:21px;font-weight:700;color:var(--amber);font-family:'Cormorant Garamond',serif;}
+.mstat-lbl{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-top:3px;}
+.modal-desc{font-size:14px;line-height:1.75;color:rgba(245,240,232,0.72);margin-bottom:22px;}
+.modal-sec-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:14px;}
+.amen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px;}
+.amen-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 8px;text-align:center;}
+.amen-em{font-size:26px;margin-bottom:5px;}.amen-nm{font-size:11px;color:var(--muted);font-weight:500;}
+.reviews-list{display:flex;flex-direction:column;gap:12px;margin-bottom:22px;}
+.review-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.rv-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.reviewer{display:flex;align-items:center;gap:10px;}
+.rv-avatar{width:38px;height:38px;border-radius:12px;background:var(--amber-dim);border:1px solid var(--amber-border);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.rv-name{font-size:14px;font-weight:600;}.rv-date{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}.rv-stars{color:var(--amber);font-size:12px;}
+.rv-text{font-size:13px;color:rgba(245,240,232,0.68);line-height:1.65;}
+.map-wrap{height:150px;background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;overflow:hidden;position:relative;}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(245,158,11,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.05) 1px,transparent 1px);background-size:28px 28px;}
+.map-pin{font-size:36px;z-index:1;animation:bounce 1.6s ease infinite;}
+.map-lbl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;z-index:1;}
 
-/* Color picker */
-.color-row{display:flex;gap:10px;flex-wrap:wrap;}
-.c-dot{
-  width:34px;height:34px;border-radius:50%;cursor:pointer;
-  border:3px solid transparent;transition:all 0.2s;position:relative;
-}
-.c-dot.sel::after{
-  content:'✓';position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;color:#fff;font-weight:700;
-}
-.c-dot:hover{transform:scale(1.15);}
+/* BOOKING BAR */
+.booking-bar{background:var(--card);border:1px solid var(--amber-border);border-radius:20px;padding:20px;}
+.bk-price-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;}
+.bk-price{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--amber);letter-spacing:-1px;}
+.bk-price sub{font-size:14px;font-weight:400;color:var(--muted);font-family:'Outfit',sans-serif;}
+.bk-total{font-size:13px;color:var(--muted);text-align:right;}
+.bk-total strong{color:var(--text);font-size:16px;}
+.book-now-btn{width:100%;padding:18px;background:var(--amber);color:var(--bg);border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:all 0.2s;}
+.book-now-btn:hover{opacity:0.88;}
 
-/* Icon picker */
-.icon-row{display:flex;gap:8px;flex-wrap:wrap;}
-.i-opt{
-  width:42px;height:42px;border-radius:12px;
-  background:var(--faint);border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;cursor:pointer;transition:all 0.2s;
-}
-.i-opt.sel{background:var(--purple-dim);border-color:var(--purple-border);}
-.i-opt:hover{background:var(--purple-dim);}
-.i-opt:active{transform:scale(0.9);}
+/* ═══════════════════════════════════
+   PAYMENT MODAL
+═══════════════════════════════════ */
+.pay-ov{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(10px);display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.pay-ov.open{opacity:1;pointer-events:all;}
+.pay-sheet{width:100%;max-width:480px;max-height:95vh;background:var(--surface);border-radius:28px 28px 0 0;overflow-y:auto;scrollbar-width:none;transform:translateY(100%);transition:transform 0.42s cubic-bezier(0.32,0.72,0,1);}
+.pay-sheet::-webkit-scrollbar{display:none;}
+.pay-ov.open .pay-sheet{transform:translateY(0);}
+.pay-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:16px auto 0;}
+.pay-header{padding:20px 20px 0;}
+.pay-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;margin-bottom:4px;}
+.pay-subtitle{font-size:13px;color:var(--muted);}
+.pay-summary{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin:16px 20px;display:flex;align-items:center;gap:14px;}
+.pay-thumb{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.pay-info{flex:1;}
+.pay-hostel-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;}
+.pay-hostel-loc{font-size:12px;color:var(--muted);margin-top:2px;}
+.pay-amount-big{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--amber);}
 
-/* Duration buttons */
-.dur-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.dur-btn{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rs);padding:12px 4px;text-align:center;
-  cursor:pointer;font-size:13px;font-weight:600;
-  transition:all 0.2s;
-}
-.dur-btn:hover{border-color:var(--purple-border);}
-.dur-btn.sel{background:var(--purple-dim);border-color:var(--purple-border);color:#c4b5fd;}
-.dur-btn:active{transform:scale(0.94);}
+/* Payment method tabs */
+.pay-methods{padding:0 20px;margin-bottom:20px;}
+.pay-methods-title{font-size:13px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;}
+.method-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px;}
+.method-tab{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.method-tab:hover{border-color:var(--amber-border);}
+.method-tab.active{background:var(--amber-dim);border-color:var(--amber-border);}
+.method-tab-ico{font-size:22px;margin-bottom:4px;}
+.method-tab-lbl{font-size:10px;font-weight:600;color:var(--muted);}
+.method-tab.active .method-tab-lbl{color:var(--amber);}
 
-/* Subject select */
-.subj-select{display:flex;flex-direction:column;gap:8px;max-height:200px;overflow-y:auto;}
-.ssi{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:var(--rs);padding:12px 14px;
-  display:flex;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;
-}
-.ssi:hover{border-color:var(--purple-border);}
-.ssi.sel{border-color:var(--purple-border);background:var(--purple-dim);}
-.ssi:active{transform:scale(0.97);}
-.ssi-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;}
-.ssi-name{font-size:14px;font-weight:600;}
+/* Payment forms */
+.pay-form{display:none;padding:0 20px;}
+.pay-form.active{display:block;}
+.pay-field{margin-bottom:14px;}
+.pay-field-lbl{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.pay-input{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--rs);padding:14px 16px;color:var(--text);font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:border-color 0.2s;}
+.pay-input:focus{border-color:var(--amber-border);}
+.pay-input::placeholder{color:var(--muted);}
+.pay-input-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* UPI apps */
+.upi-apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
+.upi-app{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.upi-app:hover{border-color:var(--amber-border);background:var(--amber-dim);}
+.upi-app-ico{font-size:24px;margin-bottom:4px;}
+.upi-app-lbl{font-size:10px;color:var(--muted);font-weight:500;}
+
+/* Card visual */
+.card-visual{background:linear-gradient(135deg,#1a1a3e,#2d1b69,#1e3a5f);border-radius:16px;padding:20px;margin-bottom:16px;position:relative;overflow:hidden;}
+.card-visual::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.card-visual::after{content:'';position:absolute;bottom:-30px;left:-30px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.card-chip{font-size:28px;margin-bottom:16px;}
+.card-number-display{font-family:'JetBrains Mono',monospace;font-size:16px;letter-spacing:3px;margin-bottom:14px;color:rgba(255,255,255,0.9);}
+.card-bottom{display:flex;justify-content:space-between;align-items:flex-end;}
+.card-name-display{font-size:12px;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:1px;}
+.card-expiry-display{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(255,255,255,0.7);}
+.card-network{font-size:24px;}
+
+/* Banks */
+.banks-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.bank-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;}
+.bank-item:hover{border-color:var(--amber-border);background:var(--amber-dim);}
+.bank-item.selected{border-color:var(--amber-border);background:var(--amber-dim);}
+.bank-ico{font-size:24px;}
+.bank-name{font-size:14px;font-weight:600;}
+.bank-type{font-size:11px;color:var(--muted);}
+.bank-check{margin-left:auto;color:var(--amber);font-size:18px;opacity:0;}
+.bank-item.selected .bank-check{opacity:1;}
+
+/* Wallet */
+.wallets-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
+.wallet-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all 0.2s;}
+.wallet-item:hover{border-color:var(--amber-border);background:var(--amber-dim);}
+.wallet-item.selected{border-color:var(--amber-border);background:var(--amber-dim);}
+.wallet-ico{font-size:28px;}
+.wallet-name{font-size:14px;font-weight:600;}
+.wallet-bal{font-size:11px;color:var(--green);}
+.wallet-check{margin-left:auto;color:var(--amber);font-size:18px;opacity:0;}
+.wallet-item.selected .wallet-check{opacity:1;}
+
+/* Pay button */
+.pay-btn-wrap{padding:16px 20px 32px;}
+.pay-now-btn{width:100%;padding:18px;background:var(--amber);color:var(--bg);border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:all 0.2s;}
+.pay-now-btn:hover{opacity:0.88;}
+.pay-now-btn:active{transform:scale(0.98);}
+.pay-secure{text-align:center;font-size:12px;color:var(--muted);margin-top:10px;display:flex;align-items:center;justify-content:center;gap:6px;}
+
+/* PROCESSING OVERLAY */
+.processing-ov{position:fixed;inset:0;z-index:300;background:rgba(13,12,10,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+.processing-ov.open{opacity:1;pointer-events:all;}
+.spin-ring{width:64px;height:64px;border:3px solid var(--faint);border-top-color:var(--amber);border-radius:50%;animation:spin 0.8s linear infinite;}
+.processing-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;}
+.processing-sub{font-size:14px;color:var(--muted);}
+
+/* CONFIRM OVERLAY */
+.confirm-ov{position:fixed;inset:0;z-index:250;background:rgba(13,12,10,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;opacity:0;pointer-events:none;transition:opacity 0.35s;padding:40px;text-align:center;}
+.confirm-ov.open{opacity:1;pointer-events:all;}
+.confirm-icon{width:100px;height:100px;border-radius:32px;background:rgba(16,185,129,0.12);border:2px solid rgba(16,185,129,0.3);display:flex;align-items:center;justify-content:center;font-size:52px;animation:successPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both;}
+.confirm-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;}
+.confirm-sub{font-size:15px;color:var(--muted);line-height:1.65;max-width:290px;}
+.confirm-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:20px;width:100%;max-width:320px;}
+.confirm-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;}
+.confirm-row:not(:last-child){border-bottom:1px solid var(--border);}
+.ck{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+.cv{font-size:14px;font-weight:600;}
+.cv.id{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber);background:var(--amber-dim);padding:2px 8px;border-radius:6px;}
+.confirm-btn{background:var(--amber);color:var(--bg);border:none;border-radius:14px;padding:16px 44px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;cursor:pointer;}
+.confetti-wrap{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.confetti{position:absolute;animation:confettiFall linear forwards;}
+
+/* EMPTY STATE */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;gap:12px;}
+.empty-em{font-size:64px;}.empty-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;}.empty-sub{font-size:14px;color:var(--muted);line-height:1.65;}
+
+/* TABS */
+.tab-pg{padding-top:24px;}
+.tab-pg-hdr{padding:0 20px 20px;display:flex;justify-content:space-between;align-items:center;}
+.tab-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;}
+
+/* BOOKINGS TAB */
+.booking-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:18px;margin:0 20px 14px;}
+.bk-card-hdr{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+.bk-thumb{width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.bk-info{flex:1;}.bk-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;margin-bottom:3px;}.bk-city{font-size:12px;color:var(--muted);}
+.bk-status{padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:1px;align-self:flex-start;}
+.s-confirmed{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.28);color:var(--green);}
+.bk-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.bk-col{background:var(--bg);border-radius:10px;padding:8px 10px;text-align:center;}
+.bk-col-lbl{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+.bk-col-val{font-size:13px;font-weight:600;margin-top:2px;}
+.pay-method-badge{display:flex;align-items:center;gap:6px;margin-top:10px;padding:8px 12px;background:var(--bg);border-radius:10px;font-size:12px;color:var(--muted);}
+
+/* PROFILE TAB */
+.profile-hdr{padding:32px 20px 24px;text-align:center;}
+.profile-av{width:90px;height:90px;border-radius:28px;background:var(--amber-dim);border:2px solid var(--amber-border);display:flex;align-items:center;justify-content:center;font-size:44px;margin:0 auto 16px;}
+.profile-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;margin-bottom:5px;}
+.profile-email{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);}
+.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px;margin-bottom:24px;}
+.p-stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 8px;text-align:center;}
+.p-stat-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--amber);}
+.p-stat-lbl{font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:1px;}
+.profile-menu{padding:0 20px;display:flex;flex-direction:column;gap:10px;}
+.menu-item{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color 0.2s;}
+.menu-item:hover{border-color:var(--amber-border);}
+.menu-ico{width:42px;height:42px;border-radius:13px;background:var(--faint);display:flex;align-items:center;justify-content:center;font-size:19px;}
+.menu-txt{flex:1;}.menu-title{font-size:15px;font-weight:600;}.menu-sub{font-size:12px;color:var(--muted);margin-top:2px;}.menu-arr{color:var(--muted);font-size:20px;}
 
 /* TOAST */
-.toast{
-  position:fixed;top:80px;left:50%;
-  transform:translateX(-50%) translateY(-20px);
-  background:linear-gradient(135deg,rgba(22,16,40,0.95),rgba(28,21,53,0.95));
-  border:1px solid var(--purple-border);border-radius:16px;
-  padding:12px 20px;display:flex;align-items:center;gap:10px;
-  font-size:14px;font-weight:500;z-index:500;
-  opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;
-  box-shadow:0 8px 32px rgba(139,92,246,0.2);
-}
+.toast{position:fixed;top:78px;left:50%;transform:translateX(-50%) translateY(-16px);background:var(--card);border:1px solid var(--amber-border);border-radius:14px;padding:11px 18px;display:flex;align-items:center;gap:9px;font-size:14px;font-weight:500;z-index:500;opacity:0;transition:all 0.3s;white-space:nowrap;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
-/* Section helpers */
-.pad-h{padding:0 20px;}
-.mb-20{margin-bottom:20px;}
-.mb-24{margin-bottom:24px;}
+.trending-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:20px;padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);letter-spacing:1px;margin-bottom:20px;margin-left:20px;}
+.trend-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 1.5s ease infinite;}
+
+/* VERIFIED BADGE */
+.verified-strip{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:8px 12px;margin-bottom:22px;font-size:12px;color:var(--green);}
 </style>
 </head>
 <body>
 
 <!-- SPLASH -->
 <div id="splash">
-  <div class="sp-rings">
-    <div class="sp-ring sp-ring1"></div>
-    <div class="sp-ring sp-ring2"></div>
-    <div class="sp-ring sp-ring3"></div>
-    <div class="sp-icon">📚</div>
-  </div>
-  <div class="sp-logo">StudyNest</div>
-  <div class="sp-sub">Focus · Track · Grow</div>
-  <div class="sp-subjects">
-    <div class="sp-subject">🧮 Maths</div>
-    <div class="sp-subject">🔬 Physics</div>
-    <div class="sp-subject">🧬 Biology</div>
-    <div class="sp-subject">⚗️ Chemistry</div>
-  </div>
-  <div class="sp-bar"><div class="sp-bar-fill"></div></div>
+  <div class="sp-logo">Stay<em>Nest</em></div>
+  <div class="sp-sub">Real Bangalore Hostels</div>
+  <div class="sp-track"><div class="sp-fill"></div></div>
+  <div class="sp-tag">🏙️ BANGALORE · 13 REAL HOSTELS</div>
 </div>
 
 <!-- TOAST -->
-<div class="toast" id="toast"><span id="toastIco">✅</span><span id="toastTxt">Done!</span></div>
+<div class="toast" id="toast"><span id="toastIco">🔖</span><span id="toastTxt">Saved!</span></div>
 
 <!-- STATUS BAR -->
 <div class="status-bar">
-  <div class="brand">StudyNest</div>
-  <div class="streak-pill">🔥 <span id="hdrStreak">0</span> day streak</div>
+  <div class="brand">Stay<em>Nest</em></div>
+  <div class="hdr-right">
+    <div class="hdr-btn">🔔<div class="notif-dot"></div></div>
+    <div class="hdr-btn">👤</div>
+  </div>
 </div>
 
 <!-- APP -->
 <div id="app">
 
-  <!-- ══ DASHBOARD ══ -->
-  <div class="tab-content active" id="tab-dash">
-    <div class="dash-pad">
-      <div class="dash-greeting" id="dashGreet">GOOD MORNING</div>
-      <div class="dash-title">Time to <span class="hi">focus</span> 🎯</div>
-      <div class="dash-date" id="dashDate"></div>
-    </div>
-
-    <div class="streak-banner">
-      <div class="streak-fire">🔥</div>
-      <div>
-        <div class="streak-num" id="streakNum">0</div>
-        <div class="streak-label">Day Streak</div>
-        <div class="streak-best" id="streakBest">Best: 0 days</div>
-      </div>
-      <div class="streak-right">
-        <div class="streak-score-label">Today</div>
-        <div class="streak-score" id="todayScore">0%</div>
-      </div>
-    </div>
-
-    <div class="prog-cards">
-      <div class="prog-card">
-        <div class="pc-top">
-          <div class="pc-icon" style="background:rgba(139,92,246,0.15)">📖</div>
-          <div class="pc-label">Study</div>
+  <!-- EXPLORE TAB -->
+  <div class="tab-content active" id="tab-explore">
+    <div class="hero">
+      <div class="hero-greeting">Good evening 🌙</div>
+      <div class="hero-title">Find real hostels<br>in <em>Bangalore</em></div>
+      <div class="hero-sub">13 verified hostels · Instant booking · Secure payments</div>
+      <div class="search-box">
+        <div class="s-row">
+          <span class="s-icon">📍</span>
+          <input class="s-input" id="searchInput" placeholder="Search hostel or area..." oninput="handleSearch()">
         </div>
-        <div class="pc-num" id="pcStudyNum">0h</div>
-        <div class="pc-sub" id="pcStudyGoal">of 0h goal</div>
-        <div class="pc-bar"><div class="pc-fill" id="pcStudyBar" style="width:0%;background:linear-gradient(90deg,#8b5cf6,#a855f7)"></div></div>
-      </div>
-      <div class="prog-card">
-        <div class="pc-top">
-          <div class="pc-icon" style="background:rgba(16,185,129,0.15)">✅</div>
-          <div class="pc-label">Habits</div>
+        <div class="s-divider"></div>
+        <div class="s-dates">
+          <div class="date-field"><div class="date-lbl">Check-in</div><input type="date" class="date-inp" id="checkin"></div>
+          <div class="date-field"><div class="date-lbl">Check-out</div><input type="date" class="date-inp" id="checkout"></div>
         </div>
-        <div class="pc-num" id="pcHabitsNum">0/0</div>
-        <div class="pc-sub">done today</div>
-        <div class="pc-bar"><div class="pc-fill" id="pcHabitsBar" style="width:0%;background:linear-gradient(90deg,#10b981,#059669)"></div></div>
+        <div class="s-bottom">
+          <div class="guests-field">
+            <div><div class="date-lbl">Guests</div><div id="guestCount" style="font-size:17px;font-weight:700;">1</div></div>
+            <div class="guest-ctrls">
+              <button class="g-btn" onclick="chGuests(-1)">−</button>
+              <button class="g-btn" onclick="chGuests(1)">+</button>
+            </div>
+          </div>
+          <button class="search-btn" onclick="handleSearch()">🔍 Search</button>
+        </div>
       </div>
     </div>
 
-    <div class="dash-section">
-      <div class="dash-sec-hdr">
-        <div class="dash-sec-title">Today's Habits</div>
-        <div class="dash-sec-link" onclick="switchTab('habits',document.querySelectorAll('.nav-item')[2])">View all →</div>
-      </div>
-      <div id="dashHabits"></div>
+    <div class="trending-tag"><span class="trend-dot"></span>✅ All hostels verified & real</div>
+
+    <!-- Area Filter -->
+    <div class="area-scroll">
+      <div class="area-chip active" onclick="filterArea('All',this)">🌍 All Areas</div>
+      <div class="area-chip" onclick="filterArea('Koramangala',this)">🍕 Koramangala</div>
+      <div class="area-chip" onclick="filterArea('Indiranagar',this)">🍻 Indiranagar</div>
+      <div class="area-chip" onclick="filterArea('Brigade Road',this)">🛍️ Brigade Road</div>
+      <div class="area-chip" onclick="filterArea('Jayanagar',this)">🌿 Jayanagar</div>
+      <div class="area-chip" onclick="filterArea('HSR Layout',this)">💻 HSR Layout</div>
+      <div class="area-chip" onclick="filterArea('Majestic',this)">🚉 Majestic</div>
+      <div class="area-chip" onclick="filterArea('Marathahalli',this)">🏢 Marathahalli</div>
     </div>
 
-    <div class="quote-wrap">
-      <div class="quote-body" id="quoteText">The secret of getting ahead is getting started.</div>
-      <div class="quote-author" id="quoteAuthor">— Mark Twain</div>
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="section-hdr">
+        <div class="section-title">Filter by</div>
+        <div class="see-all" onclick="resetFilters()">Reset all</div>
+      </div>
+      <div class="filter-chips">
+        <div class="filter-chip" onclick="toggleFilter('wifi',this)">📶 WiFi</div>
+        <div class="filter-chip" onclick="toggleFilter('ac',this)">❄️ AC</div>
+        <div class="filter-chip" onclick="toggleFilter('food',this)">🍛 Food</div>
+        <div class="filter-chip" onclick="toggleFilter('laundry',this)">👕 Laundry</div>
+        <div class="filter-chip" onclick="toggleFilter('parking',this)">🚗 Parking</div>
+        <div class="filter-chip" onclick="toggleFilter('gym',this)">💪 Gym</div>
+        <div class="filter-chip" onclick="toggleFilter('pool',this)">🏊 Pool</div>
+        <div class="filter-chip" onclick="toggleFilter('cowork',this)">💼 Co-Work</div>
+      </div>
+      <div class="price-filter">
+        <div class="price-hdr">
+          <span class="price-lbl">Max price per night</span>
+          <span class="price-val" id="priceDisplay">₹1500</span>
+        </div>
+        <input type="range" class="price-slider" id="priceSlider" min="400" max="1500" value="1500" step="50" oninput="filterByPrice(this.value)">
+      </div>
+    </div>
+
+    <div class="results-hdr">
+      <div class="results-count"><span id="resultCount">13</span> hostels found</div>
+      <div class="sort-btn" onclick="toggleSort()">⇅ <span id="sortLabel">Rating</span></div>
+    </div>
+    <div class="hostels-grid" id="hostelsGrid"></div>
+  </div>
+
+  <!-- SAVED TAB -->
+  <div class="tab-content" id="tab-saved">
+    <div class="tab-pg">
+      <div class="tab-pg-hdr">
+        <div class="tab-title">Saved ❤️</div>
+        <div class="see-all" onclick="clearWishlist()">Clear all</div>
+      </div>
+      <div id="savedGrid"></div>
     </div>
   </div>
 
-  <!-- ══ STUDY ══ -->
-  <div class="tab-content" id="tab-study">
-    <div class="study-pad">
-      <div class="page-title">My <span class="grad">Study</span></div>
-      <div class="page-sub" id="studySubLine">Today: 0 min logged</div>
-    </div>
-
-    <!-- Timer -->
-    <div class="timer-card" id="timerCard">
-      <div class="timer-subj-name" id="timerSubjName">SELECT SUBJECT</div>
-      <div class="timer-display" id="timerDisp">00:00</div>
-      <div class="timer-btns">
-        <button class="btn-pause" id="pauseBtn" onclick="pauseTimer()">⏸ Pause</button>
-        <button class="btn-stop" onclick="stopTimer()">⏹ Save</button>
+  <!-- BOOKINGS TAB -->
+  <div class="tab-content" id="tab-bookings">
+    <div class="tab-pg">
+      <div class="tab-pg-hdr" style="flex-direction:column;align-items:flex-start;gap:4px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">Your trips</div>
+        <div class="tab-title">My Bookings 🎫</div>
       </div>
-    </div>
-
-    <div class="pad-h mb-20">
-      <button class="btn-primary ripple-btn" id="startBtn" onclick="openModal('timerMod')">
-        ⏱️ Start Study Session
-      </button>
-    </div>
-
-    <!-- Sessions today -->
-    <div class="pad-h mb-24">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div class="section-title" style="margin-bottom:0">Today's Sessions</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#a78bfa;" id="totalTime">0 min</div>
-      </div>
-      <div id="sessionsList"></div>
-    </div>
-
-    <!-- Subjects -->
-    <div class="pad-h mb-24">
-      <div class="section-title">My Subjects</div>
-      <div id="subjectsList"></div>
-      <button class="btn-add" onclick="openModal('subjMod')">+ Add Subject</button>
+      <div id="bookingsContainer"></div>
     </div>
   </div>
 
-  <!-- ══ HABITS ══ -->
-  <div class="tab-content" id="tab-habits">
-    <div class="habits-pad">
-      <div class="page-title">My <span class="grad">Habits</span></div>
-      <div class="page-sub">Build consistency, one day at a time</div>
+  <!-- PROFILE TAB -->
+  <div class="tab-content" id="tab-profile">
+    <div class="profile-hdr">
+      <div class="profile-av">🧑‍💻</div>
+      <div class="profile-name">Anuj</div>
+      <div class="profile-email">anuj@bca.student • Bangalore</div>
     </div>
-
-    <div class="ring-banner">
-      <div class="ring-svg">
-        <svg width="80" height="80">
-          <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(139,92,246,0.1)" stroke-width="7"/>
-          <circle cx="40" cy="40" r="32" fill="none" stroke="url(#ringGrad)" stroke-width="7"
-            stroke-dasharray="201.1" stroke-dashoffset="201.1" stroke-linecap="round"
-            id="ringCircle" style="transition:stroke-dashoffset 0.8s cubic-bezier(0.34,1.56,0.64,1)"/>
-          <defs>
-            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#8b5cf6"/>
-              <stop offset="100%" stop-color="#10b981"/>
-            </linearGradient>
-          </defs>
-        </svg>
-        <div class="ring-pct" id="ringPct">0%</div>
-      </div>
-      <div class="ring-info">
-        <div class="ring-title" id="ringTitle">Let's go! 🚀</div>
-        <div class="ring-sub" id="ringSub">Complete habits for today</div>
-      </div>
+    <div class="profile-stats">
+      <div class="p-stat"><div class="p-stat-num" id="profileTrips">0</div><div class="p-stat-lbl">Trips</div></div>
+      <div class="p-stat"><div class="p-stat-num" id="profileSaved">0</div><div class="p-stat-lbl">Saved</div></div>
+      <div class="p-stat"><div class="p-stat-num">⭐4.9</div><div class="p-stat-lbl">Rating</div></div>
     </div>
-
-    <div class="pad-h" id="habitsList"></div>
-    <div class="pad-h mb-24">
-      <button class="btn-add" onclick="openModal('habitMod')">+ Add Habit</button>
+    <div class="profile-menu">
+      <div class="menu-item"><div class="menu-ico">🪪</div><div class="menu-txt"><div class="menu-title">Edit Profile</div><div class="menu-sub">Update your details</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">💳</div><div class="menu-txt"><div class="menu-title">Saved Cards & UPI</div><div class="menu-sub">Manage payment methods</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">🔔</div><div class="menu-txt"><div class="menu-title">Notifications</div><div class="menu-sub">Deals & booking updates</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">🤝</div><div class="menu-txt"><div class="menu-title">Refer & Earn</div><div class="menu-sub">₹200 credit per friend</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item"><div class="menu-ico">🛟</div><div class="menu-txt"><div class="menu-title">Help & Support</div><div class="menu-sub">24/7 chat support</div></div><span class="menu-arr">›</span></div>
+      <div class="menu-item" style="border-color:rgba(239,68,68,0.2);"><div class="menu-ico" style="background:rgba(239,68,68,0.1);">🚪</div><div class="menu-txt"><div class="menu-title" style="color:var(--red);">Sign Out</div><div class="menu-sub">See you soon 👋</div></div><span class="menu-arr">›</span></div>
     </div>
+    <div style="height:40px;"></div>
   </div>
 
-  <!-- ══ STATS ══ -->
-  <div class="tab-content" id="tab-stats">
-    <div class="stats-pad">
-      <div class="page-title">My <span class="grad">Stats</span></div>
-      <div class="page-sub" style="margin-bottom:22px">Your progress at a glance</div>
-    </div>
-
-    <div class="pad-h stats-grid">
-      <div class="stat-card"><div class="stat-num" id="sTotalHrs">0</div><div class="stat-lbl">Total Hours</div></div>
-      <div class="stat-card"><div class="stat-num" id="sBestStreak">0🔥</div><div class="stat-lbl">Best Streak</div></div>
-      <div class="stat-card"><div class="stat-num" id="sSessions">0</div><div class="stat-lbl">Sessions</div></div>
-      <div class="stat-card"><div class="stat-num" id="sHabitsDone">0</div><div class="stat-lbl">Habits Done</div></div>
-    </div>
-
-    <div class="pad-h mb-24">
-      <div class="section-title">Hours by Subject</div>
-      <div id="breakdownList"></div>
-    </div>
-
-    <div class="pad-h mb-24">
-      <div class="section-title">This Week</div>
-      <div class="week-lbl-row" id="weekLabels"></div>
-      <div class="week-grid" id="weekGrid"></div>
-    </div>
-  </div>
-
-</div><!-- /app -->
+</div>
 
 <!-- BOTTOM NAV -->
 <div class="bottom-nav">
-  <div class="nav-item active" onclick="switchTab('dash',this)">
-    <div class="nav-icon-wrap">🏠</div>
-    <span class="nav-lbl">Home</span>
-    <div class="nav-glow"></div>
-  </div>
-  <div class="nav-item" onclick="switchTab('study',this)">
-    <div class="nav-icon-wrap">📖</div>
-    <span class="nav-lbl">Study</span>
-    <div class="nav-glow"></div>
-  </div>
-  <div class="nav-item" onclick="switchTab('habits',this)">
-    <div class="nav-icon-wrap">✅</div>
-    <span class="nav-lbl">Habits</span>
-    <div class="nav-glow"></div>
-  </div>
-  <div class="nav-item" onclick="switchTab('stats',this)">
-    <div class="nav-icon-wrap">📊</div>
-    <span class="nav-lbl">Stats</span>
-    <div class="nav-glow"></div>
-  </div>
+  <div class="nav-item active" onclick="switchTab('explore',this)"><div class="nav-icon">🔍</div><span class="nav-lbl">EXPLORE</span></div>
+  <div class="nav-item" onclick="switchTab('saved',this)"><div class="nav-icon">❤️</div><span class="nav-lbl">SAVED</span><div class="nav-badge" id="savedBadge" style="display:none">0</div></div>
+  <div class="nav-item" onclick="switchTab('bookings',this)"><div class="nav-icon">🎫</div><span class="nav-lbl">TRIPS</span><div class="nav-badge" id="bookingsBadge" style="display:none">0</div></div>
+  <div class="nav-item" onclick="switchTab('profile',this)"><div class="nav-icon">👤</div><span class="nav-lbl">PROFILE</span></div>
 </div>
 
-<!-- ADD SUBJECT MODAL -->
-<div class="modal-ov" id="subjMod" onclick="ovClick(event,'subjMod')">
+<!-- DETAIL MODAL -->
+<div class="modal-ov" id="detailOv" onclick="ovClick(event,'detailOv')">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
-    <div class="modal-hdr">
-      <div class="modal-title">Add Subject</div>
-      <button class="modal-x" onclick="closeModal('subjMod')">✕</button>
+    <div class="modal-hero">
+      <div class="modal-hero-bg" id="mHeroBg"></div>
+      <button class="modal-close" onclick="closeModal('detailOv')">✕</button>
+      <div class="modal-hero-wish" id="mHeroWish" onclick="heroWish()">🤍</div>
+      <div class="modal-hero-info">
+        <div class="modal-name" id="mName"></div>
+        <div class="modal-chain" id="mChain"></div>
+        <div class="modal-loc" id="mLoc"></div>
+      </div>
     </div>
     <div class="modal-body">
-      <div class="m-field">
-        <div class="m-lbl">Subject Name</div>
-        <input class="m-input" id="sName" placeholder="e.g. Mathematics, Physics...">
+      <div class="verified-strip">✅ Verified hostel · Real listings · Instant confirmation</div>
+      <div class="modal-stats">
+        <div class="mstat"><div class="mstat-val" id="mRating"></div><div class="mstat-lbl">Rating</div></div>
+        <div class="mstat"><div class="mstat-val" id="mReviews"></div><div class="mstat-lbl">Reviews</div></div>
+        <div class="mstat"><div class="mstat-val" id="mPrice"></div><div class="mstat-lbl">Per Night</div></div>
       </div>
-      <div class="m-field">
-        <div class="m-lbl">Icon</div>
-        <div class="icon-row" id="sIconPick"></div>
+      <div class="modal-desc" id="mDesc"></div>
+      <div class="modal-sec-title">Amenities</div>
+      <div class="amen-grid" id="mAmenities"></div>
+      <div class="modal-sec-title">Guest Reviews</div>
+      <div class="reviews-list" id="mReviews2"></div>
+      <div class="modal-sec-title">Location</div>
+      <div class="map-wrap">
+        <div class="map-grid"></div>
+        <div class="map-pin">📍</div>
+        <div class="map-lbl" id="mMapLbl"></div>
       </div>
-      <div class="m-field">
-        <div class="m-lbl">Color</div>
-        <div class="color-row" id="sColorPick"></div>
+      <div class="booking-bar">
+        <div class="bk-price-row">
+          <div class="bk-price" id="bkPrice">₹599 <sub>/night</sub></div>
+          <div class="bk-total">2 nights: <strong id="bkTotal">₹1,198</strong></div>
+        </div>
+        <button class="book-now-btn" onclick="openPayment()">🔒 Book & Pay Securely</button>
       </div>
-      <div class="m-field">
-        <div class="m-lbl">Daily Goal (hours)</div>
-        <input class="m-input" id="sGoal" type="number" min="0.5" max="12" step="0.5" placeholder="e.g. 2">
-      </div>
-      <button class="btn-primary ripple-btn" onclick="addSubject()" style="margin-top:8px">Add Subject 📚</button>
     </div>
   </div>
 </div>
 
-<!-- ADD HABIT MODAL -->
-<div class="modal-ov" id="habitMod" onclick="ovClick(event,'habitMod')">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-hdr">
-      <div class="modal-title">Add Habit</div>
-      <button class="modal-x" onclick="closeModal('habitMod')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="m-field">
-        <div class="m-lbl">Habit Name</div>
-        <input class="m-input" id="hName" placeholder="e.g. Exercise 30 mins, Read 20 pages...">
+<!-- PAYMENT MODAL -->
+<div class="pay-ov" id="payOv" onclick="ovClick(event,'payOv')">
+  <div class="pay-sheet">
+    <div class="pay-handle"></div>
+    <div class="pay-header">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="pay-title">Complete Payment</div>
+        <button style="background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;" onclick="closeModal('payOv')">✕</button>
       </div>
-      <div class="m-field">
-        <div class="m-lbl">Choose Emoji</div>
-        <div class="icon-row" id="hEmojiPick"></div>
-      </div>
-      <button class="btn-primary ripple-btn" onclick="addHabit()" style="margin-top:8px">Add Habit ✅</button>
+      <div class="pay-subtitle">100% secure · Instant confirmation</div>
     </div>
-  </div>
-</div>
 
-<!-- TIMER MODAL -->
-<div class="modal-ov" id="timerMod" onclick="ovClick(event,'timerMod')">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-hdr">
-      <div class="modal-title">Study Session</div>
-      <button class="modal-x" onclick="closeModal('timerMod')">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="m-field">
-        <div class="m-lbl">Select Subject</div>
-        <div class="subj-select" id="timerSubjSel"></div>
+    <!-- Summary -->
+    <div class="pay-summary">
+      <div class="pay-thumb" id="payThumb"></div>
+      <div class="pay-info">
+        <div class="pay-hostel-name" id="payHostelName"></div>
+        <div class="pay-hostel-loc" id="payHostelLoc"></div>
       </div>
-      <div class="m-field" style="margin-top:16px">
-        <div class="m-lbl">Duration (or use live timer)</div>
-        <div class="dur-row" id="durBtns">
-          <div class="dur-btn" onclick="selDur(this,30)">30 min</div>
-          <div class="dur-btn" onclick="selDur(this,45)">45 min</div>
-          <div class="dur-btn" onclick="selDur(this,60)">1 hour</div>
-          <div class="dur-btn" onclick="selDur(this,90)">1.5 hr</div>
-          <div class="dur-btn" onclick="selDur(this,120)">2 hours</div>
-          <div class="dur-btn sel" onclick="selDur(this,0)">⏱ Timer</div>
+      <div class="pay-amount-big" id="payAmountBig"></div>
+    </div>
+
+    <!-- Method Tabs -->
+    <div class="pay-methods">
+      <div class="pay-methods-title">Choose payment method</div>
+      <div class="method-tabs">
+        <div class="method-tab active" onclick="selectMethod('upi',this)">
+          <div class="method-tab-ico">📱</div>
+          <div class="method-tab-lbl">UPI</div>
+        </div>
+        <div class="method-tab" onclick="selectMethod('card',this)">
+          <div class="method-tab-ico">💳</div>
+          <div class="method-tab-lbl">Card</div>
+        </div>
+        <div class="method-tab" onclick="selectMethod('netbank',this)">
+          <div class="method-tab-ico">🏦</div>
+          <div class="method-tab-lbl">NetBank</div>
+        </div>
+        <div class="method-tab" onclick="selectMethod('wallet',this)">
+          <div class="method-tab-ico">👛</div>
+          <div class="method-tab-lbl">Wallet</div>
         </div>
       </div>
-      <div class="m-field">
-        <div class="m-lbl">Note (optional)</div>
-        <input class="m-input" id="sessNote" placeholder="What are you studying?">
+
+      <!-- UPI FORM -->
+      <div class="pay-form active" id="form-upi">
+        <div class="upi-apps">
+          <div class="upi-app" onclick="selectUPI(this,'GPay')"><div class="upi-app-ico">🟢</div><div class="upi-app-lbl">GPay</div></div>
+          <div class="upi-app" onclick="selectUPI(this,'PhonePe')"><div class="upi-app-ico">🟣</div><div class="upi-app-lbl">PhonePe</div></div>
+          <div class="upi-app" onclick="selectUPI(this,'Paytm')"><div class="upi-app-ico">🔵</div><div class="upi-app-lbl">Paytm</div></div>
+          <div class="upi-app" onclick="selectUPI(this,'BHIM')"><div class="upi-app-ico">🇮🇳</div><div class="upi-app-lbl">BHIM</div></div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-field-lbl">Or enter UPI ID</div>
+          <input class="pay-input" id="upiInput" placeholder="yourname@upi" type="text">
+        </div>
       </div>
-      <button class="btn-primary ripple-btn" onclick="startOrLog()">Start Session ▶</button>
+
+      <!-- CARD FORM -->
+      <div class="pay-form" id="form-card">
+        <div class="card-visual">
+          <div class="card-chip">💳</div>
+          <div class="card-number-display" id="cardNumDisplay">•••• •••• •••• ••••</div>
+          <div class="card-bottom">
+            <div>
+              <div class="card-name-display" id="cardNameDisplay">YOUR NAME</div>
+              <div class="card-expiry-display" id="cardExpDisplay">MM/YY</div>
+            </div>
+            <div class="card-network">🏦</div>
+          </div>
+        </div>
+        <div class="pay-field">
+          <div class="pay-field-lbl">Card Number</div>
+          <input class="pay-input" id="cardNum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+        </div>
+        <div class="pay-field">
+          <div class="pay-field-lbl">Cardholder Name</div>
+          <input class="pay-input" id="cardName" placeholder="Name on card" oninput="document.getElementById('cardNameDisplay').textContent=this.value.toUpperCase()||'YOUR NAME'">
+        </div>
+        <div class="pay-input-row">
+          <div class="pay-field">
+            <div class="pay-field-lbl">Expiry Date</div>
+            <input class="pay-input" id="cardExp" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
+          </div>
+          <div class="pay-field">
+            <div class="pay-field-lbl">CVV</div>
+            <input class="pay-input" id="cardCvv" placeholder="•••" maxlength="3" type="password">
+          </div>
+        </div>
+      </div>
+
+      <!-- NET BANKING FORM -->
+      <div class="pay-form" id="form-netbank">
+        <div class="banks-grid">
+          <div class="bank-item" onclick="selectBank(this)"><div class="bank-ico">🏛️</div><div><div class="bank-name">SBI</div><div class="bank-type">State Bank of India</div></div><span class="bank-check">✓</span></div>
+          <div class="bank-item" onclick="selectBank(this)"><div class="bank-ico">🔷</div><div><div class="bank-name">HDFC</div><div class="bank-type">HDFC Bank</div></div><span class="bank-check">✓</span></div>
+          <div class="bank-item" onclick="selectBank(this)"><div class="bank-ico">🟠</div><div><div class="bank-name">ICICI</div><div class="bank-type">ICICI Bank</div></div><span class="bank-check">✓</span></div>
+          <div class="bank-item" onclick="selectBank(this)"><div class="bank-ico">🔴</div><div><div class="bank-name">Axis</div><div class="bank-type">Axis Bank</div></div><span class="bank-check">✓</span></div>
+          <div class="bank-item" onclick="selectBank(this)"><div class="bank-ico">🔵</div><div><div class="bank-name">Kotak</div><div class="bank-type">Kotak Mahindra</div></div><span class="bank-check">✓</span></div>
+          <div class="bank-item" onclick="selectBank(this)"><div class="bank-ico">🟢</div><div><div class="bank-name">Yes Bank</div><div class="bank-type">Yes Bank</div></div><span class="bank-check">✓</span></div>
+        </div>
+      </div>
+
+      <!-- WALLET FORM -->
+      <div class="pay-form" id="form-wallet">
+        <div class="wallets-grid">
+          <div class="wallet-item" onclick="selectWallet(this)"><div class="wallet-ico">💙</div><div><div class="wallet-name">Paytm</div><div class="wallet-bal">Balance: ₹0</div></div><span class="wallet-check">✓</span></div>
+          <div class="wallet-item" onclick="selectWallet(this)"><div class="wallet-ico">💜</div><div><div class="wallet-name">PhonePe</div><div class="wallet-bal">Balance: ₹0</div></div><span class="wallet-check">✓</span></div>
+          <div class="wallet-item" onclick="selectWallet(this)"><div class="wallet-ico">🟠</div><div><div class="wallet-name">Amazon Pay</div><div class="wallet-bal">Balance: ₹0</div></div><span class="wallet-check">✓</span></div>
+          <div class="wallet-item" onclick="selectWallet(this)"><div class="wallet-ico">🔵</div><div><div class="wallet-name">Mobikwik</div><div class="wallet-bal">Balance: ₹0</div></div><span class="wallet-check">✓</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-btn-wrap">
+      <button class="pay-now-btn" onclick="processPayment()" id="payNowBtn">
+        🔒 Pay <span id="payBtnAmount"></span> Securely
+      </button>
+      <div class="pay-secure">🔐 256-bit SSL encrypted · Your data is safe</div>
     </div>
   </div>
+</div>
+
+<!-- PROCESSING OVERLAY -->
+<div class="processing-ov" id="processingOv">
+  <div class="spin-ring"></div>
+  <div class="processing-title">Processing Payment...</div>
+  <div class="processing-sub" id="processingMsg">Connecting to payment gateway</div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div class="confirm-ov" id="confirmOv">
+  <div class="confetti-wrap" id="confettiWrap"></div>
+  <div class="confirm-icon">✅</div>
+  <div class="confirm-title">Booking Confirmed!</div>
+  <div class="confirm-sub">Payment successful! Your hostel has been reserved. See you there! 🎉</div>
+  <div class="confirm-card">
+    <div class="confirm-row"><span class="ck">HOSTEL</span><span class="cv" id="cfHostel">—</span></div>
+    <div class="confirm-row"><span class="ck">LOCATION</span><span class="cv" id="cfCity">—</span></div>
+    <div class="confirm-row"><span class="ck">GUESTS</span><span class="cv" id="cfGuests">—</span></div>
+    <div class="confirm-row"><span class="ck">PAID</span><span class="cv" id="cfTotal">—</span></div>
+    <div class="confirm-row"><span class="ck">METHOD</span><span class="cv" id="cfMethod">—</span></div>
+    <div class="confirm-row"><span class="ck">BOOKING ID</span><span class="cv id" id="cfId">—</span></div>
+  </div>
+  <button class="confirm-btn" onclick="closeConfirm()">🎊 Awesome!</button>
 </div>
 
 <script>
 // ════════════════════════════════════
-// CONSTANTS
+// REAL BANGALORE HOSTEL DATA
 // ════════════════════════════════════
-var COLORS=['#8b5cf6','#ec4899','#3b82f6','#10b981','#f59e0b','#ef4444','#06b6d4','#84cc16'];
-var SUBJECT_ICONS=['🧮','🔬','🧬','⚗️','📝','💻','🌍','🎭','📐','🏛️','🎵','⚡'];
-var HABIT_EMOJIS=['🏃','📖','💧','😴','🧘','🍎','✍️','🎯','💪','🚫','☀️','🤸','📵','🧠','🌿','🎹'];
-var QUOTES=[
-  {t:"The secret of getting ahead is getting started.",a:"Mark Twain"},
-  {t:"Study hard what interests you in the most undisciplined manner possible.",a:"Richard Feynman"},
-  {t:"An investment in knowledge pays the best interest.",a:"Benjamin Franklin"},
-  {t:"The beautiful thing about learning is that no one can take it away from you.",a:"B.B. King"},
-  {t:"Education is not the filling of a pail, but the lighting of a fire.",a:"W.B. Yeats"},
-  {t:"The more that you read, the more things you will know.",a:"Dr. Seuss"},
-  {t:"Believe you can and you're halfway there.",a:"Theodore Roosevelt"},
-  {t:"It always seems impossible until it's done.",a:"Nelson Mandela"},
-  {t:"Push yourself, because no one else is going to do it for you.",a:"Unknown"},
-  {t:"Great things never come from comfort zones.",a:"Unknown"}
-];
-
-// DEFAULT SUBJECTS
-var DEFAULT_SUBJECTS=[
-  {id:'s1',name:'Mathematics',icon:'🧮',color:'#8b5cf6',goalHours:2},
-  {id:'s2',name:'Physics',icon:'🔬',color:'#3b82f6',goalHours:1.5},
-  {id:'s3',name:'Biology',icon:'🧬',color:'#10b981',goalHours:1},
-  {id:'s4',name:'Chemistry',icon:'⚗️',color:'#ef4444',goalHours:1}
-];
-
-// DEFAULT HABITS
-var DEFAULT_HABITS=[
-  {id:'h1',name:'Exercise 30 mins',emoji:'🏃',completedDates:[]},
-  {id:'h2',name:'Read 20 pages',emoji:'📖',completedDates:[]},
-  {id:'h3',name:'Drink 8 glasses of water',emoji:'💧',completedDates:[]},
-  {id:'h4',name:'No phone before study',emoji:'📵',completedDates:[]}
-];
-
-// ════════════════════════════════════
-// STATE
-// ════════════════════════════════════
-var subjects=JSON.parse(localStorage.getItem('sn2_subjects')||'null');
-var sessions=JSON.parse(localStorage.getItem('sn2_sessions')||'[]');
-var habits=JSON.parse(localStorage.getItem('sn2_habits')||'null');
-if(!subjects){subjects=DEFAULT_SUBJECTS;saveSubjects();}
-if(!habits){habits=DEFAULT_HABITS;saveHabits();}
-
-var selColor=COLORS[0],selIcon=SUBJECT_ICONS[0],selHabitEmoji=HABIT_EMOJIS[0];
-var selTimerSubj=null,selDuration=0;
-var timerRunning=false,timerPaused=false,timerSecs=0,timerInt=null;
-var timerSubjId=null,timerNote='';
-
-function saveSubjects(){localStorage.setItem('sn2_subjects',JSON.stringify(subjects));}
-function saveSessions(){localStorage.setItem('sn2_sessions',JSON.stringify(sessions));}
-function saveHabits(){localStorage.setItem('sn2_habits',JSON.stringify(habits));}
-function gid(){return Date.now().toString(36)+Math.random().toString(36).substr(2,4);}
-function today(){return new Date().toISOString().split('T')[0];}
-function getLast7(){var d=[];for(var i=6;i>=0;i--){var x=new Date();x.setDate(x.getDate()-i);d.push(x.toISOString().split('T')[0]);}return d;}
-function fmtMins(m){if(m<60)return m+'m';var h=Math.floor(m/60),r=m%60;return h+'h'+(r?r+'m':'');}
-
-// ════════════════════════════════════
-// SOUND ENGINE
-// ════════════════════════════════════
-function playSound(type){
-  try{
-    var ctx=new(window.AudioContext||window.webkitAudioContext)();
-    if(type==='click'){
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.type='sine';o.frequency.setValueAtTime(600,ctx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(400,ctx.currentTime+0.08);
-      g.gain.setValueAtTime(0.08,ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.1);
-      o.start();o.stop(ctx.currentTime+0.1);
-    }
-    else if(type==='complete'){
-      // Happy arpeggio: C-E-G-C
-      var notes=[523,659,784,1047];
-      notes.forEach(function(freq,i){
-        var o=ctx.createOscillator(),g=ctx.createGain();
-        o.connect(g);g.connect(ctx.destination);
-        o.type='sine';
-        o.frequency.setValueAtTime(freq,ctx.currentTime+i*0.1);
-        g.gain.setValueAtTime(0,ctx.currentTime+i*0.1);
-        g.gain.linearRampToValueAtTime(0.12,ctx.currentTime+i*0.1+0.02);
-        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.1+0.25);
-        o.start(ctx.currentTime+i*0.1);
-        o.stop(ctx.currentTime+i*0.1+0.3);
-      });
-    }
-    else if(type==='save'){
-      // Two-tone success
-      var freqs=[440,554];
-      freqs.forEach(function(f,i){
-        var o=ctx.createOscillator(),g=ctx.createGain();
-        o.connect(g);g.connect(ctx.destination);
-        o.type='triangle';
-        o.frequency.setValueAtTime(f,ctx.currentTime+i*0.15);
-        g.gain.setValueAtTime(0.1,ctx.currentTime+i*0.15);
-        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.15+0.3);
-        o.start(ctx.currentTime+i*0.15);
-        o.stop(ctx.currentTime+i*0.15+0.35);
-      });
-    }
-    else if(type==='streak'){
-      // Streak fire sound
-      var freqs=[261,330,392,523,659];
-      freqs.forEach(function(f,i){
-        var o=ctx.createOscillator(),g=ctx.createGain();
-        o.connect(g);g.connect(ctx.destination);
-        o.type='sine';
-        o.frequency.setValueAtTime(f,ctx.currentTime+i*0.07);
-        g.gain.setValueAtTime(0.12,ctx.currentTime+i*0.07);
-        g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+i*0.07+0.2);
-        o.start(ctx.currentTime+i*0.07);
-        o.stop(ctx.currentTime+i*0.07+0.25);
-      });
-    }
-    else if(type==='error'){
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.type='sawtooth';o.frequency.setValueAtTime(200,ctx.currentTime);
-      g.gain.setValueAtTime(0.06,ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.15);
-      o.start();o.stop(ctx.currentTime+0.15);
-    }
-    else if(type==='tick'){
-      var o=ctx.createOscillator(),g=ctx.createGain();
-      o.connect(g);g.connect(ctx.destination);
-      o.type='square';o.frequency.setValueAtTime(1200,ctx.currentTime);
-      g.gain.setValueAtTime(0.04,ctx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.05);
-      o.start();o.stop(ctx.currentTime+0.05);
-    }
-  }catch(e){}
-}
-
-// ════════════════════════════════════
-// STREAK CALCULATOR
-// ════════════════════════════════════
-function calcStreak(){
-  var actDates={};
-  habits.forEach(function(h){(h.completedDates||[]).forEach(function(d){actDates[d]=true;});});
-  sessions.forEach(function(s){actDates[s.date]=true;});
-  var t=today();
-  var cur=0,best=0;
-  var check=t;
-  while(actDates[check]){
-    cur++;
-    var d=new Date(check);d.setDate(d.getDate()-1);
-    check=d.toISOString().split('T')[0];
-  }
-  if(!actDates[t]){
-    var yest=new Date();yest.setDate(yest.getDate()-1);
-    check=yest.toISOString().split('T')[0];cur=0;
-    while(actDates[check]){
-      cur++;
-      var d=new Date(check);d.setDate(d.getDate()-1);
-      check=d.toISOString().split('T')[0];
-    }
-  }
-  var dates=Object.keys(actDates).sort();
-  var streak=1;
-  for(var i=1;i<dates.length;i++){
-    var prev=new Date(dates[i-1]);prev.setDate(prev.getDate()+1);
-    if(prev.toISOString().split('T')[0]===dates[i])streak++;
-    else streak=1;
-    if(streak>best)best=streak;
-  }
-  if(cur>best)best=cur;
-  return{current:cur,best:Math.max(best,cur)};
-}
-
-function calcHabitStreak(h){
-  var d=h.completedDates||[];
-  if(!d.length)return{current:0,best:0};
-  var t=today(),cur=0,best=0,check=t;
-  while(d.indexOf(check)>-1){cur++;var x=new Date(check);x.setDate(x.getDate()-1);check=x.toISOString().split('T')[0];}
-  if(d.indexOf(t)===-1){var yest=new Date();yest.setDate(yest.getDate()-1);check=yest.toISOString().split('T')[0];cur=0;while(d.indexOf(check)>-1){cur++;var x=new Date(check);x.setDate(x.getDate()-1);check=x.toISOString().split('T')[0];}}
-  var sorted=d.slice().sort();var s=1;
-  for(var i=1;i<sorted.length;i++){var p=new Date(sorted[i-1]);p.setDate(p.getDate()+1);if(p.toISOString().split('T')[0]===sorted[i])s++;else s=1;if(s>best)best=s;}
-  if(cur>best)best=cur;
-  return{current:cur,best:Math.max(best,cur)};
-}
-
-// ════════════════════════════════════
-// HELPERS
-// ════════════════════════════════════
-function getTodaySessions(){return sessions.filter(function(s){return s.date===today();});}
-function getTodayMins(){return getTodaySessions().reduce(function(a,s){return a+s.minutes;},0);}
-function getTotalGoalHrs(){return subjects.reduce(function(a,s){return a+(s.goalHours||0);},0);}
-function getSubjMins(id){return getTodaySessions().filter(function(s){return s.subjectId===id;}).reduce(function(a,s){return a+s.minutes;},0);}
-
-// ════════════════════════════════════
-// RENDER: DASHBOARD
-// ════════════════════════════════════
-function renderDash(){
-  var hr=new Date().getHours();
-  var greet=hr<12?'GOOD MORNING ☀️':hr<17?'GOOD AFTERNOON ✨':'GOOD EVENING 🌙';
-  document.getElementById('dashGreet').textContent=greet;
-  var now=new Date();
-  document.getElementById('dashDate').textContent=now.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
-  var streak=calcStreak();
-  document.getElementById('streakNum').textContent=streak.current;
-  document.getElementById('hdrStreak').textContent=streak.current;
-  document.getElementById('streakBest').textContent='Best: '+streak.best+' days';
-
-  var todayMins=getTodayMins(),goalMins=getTotalGoalHrs()*60;
-  var studyPct=goalMins>0?Math.min(100,Math.round(todayMins/goalMins*100)):0;
-  document.getElementById('pcStudyNum').textContent=fmtMins(todayMins)||'0m';
-  document.getElementById('pcStudyGoal').textContent='of '+getTotalGoalHrs()+'h goal';
-  setTimeout(function(){document.getElementById('pcStudyBar').style.width=studyPct+'%';},100);
-
-  var done=habits.filter(function(h){return(h.completedDates||[]).indexOf(today())>-1;}).length;
-  var total=habits.length;
-  var habitPct=total>0?Math.round(done/total*100):0;
-  document.getElementById('pcHabitsNum').textContent=done+'/'+total;
-  setTimeout(function(){document.getElementById('pcHabitsBar').style.width=habitPct+'%';},100);
-
-  var score=total>0?Math.round((studyPct+habitPct)/2):studyPct;
-  document.getElementById('todayScore').textContent=score+'%';
-
-  // Quick habits
-  var el=document.getElementById('dashHabits');
-  if(!habits.length){el.innerHTML='<div class="empty-state"><div class="empty-em">🌱</div><div class="empty-title">No habits yet</div><div class="empty-sub">Add habits to track your daily progress</div></div>';return;}
-  el.innerHTML=habits.slice(0,5).map(function(h){
-    var isDone=(h.completedDates||[]).indexOf(today())>-1;
-    var s=calcHabitStreak(h);
-    return'<div class="habit-quick'+(isDone?' done':'')+'" onclick="toggleHabit(\''+h.id+'\')" id="hq_'+h.id+'">'
-      +'<div class="hq-check">'+(isDone?'✓':'')+'</div>'
-      +'<div class="hq-name">'+h.emoji+' '+h.name+'</div>'
-      +(s.current>0?'<div class="hq-streak">🔥'+s.current+'d</div>':'')
-      +'</div>';
-  }).join('');
-
-  var q=QUOTES[new Date().getDay()%QUOTES.length];
-  document.getElementById('quoteText').textContent=q.t;
-  document.getElementById('quoteAuthor').textContent='— '+q.a;
-}
-
-// ════════════════════════════════════
-// RENDER: STUDY
-// ════════════════════════════════════
-function renderStudy(){
-  var todayMins=getTodayMins();
-  document.getElementById('studySubLine').textContent='Today: '+fmtMins(todayMins)+' logged';
-  document.getElementById('totalTime').textContent=fmtMins(todayMins);
-  document.getElementById('startBtn').disabled=timerRunning;
-
-  // Sessions
-  var sl=document.getElementById('sessionsList');
-  var ts=getTodaySessions().slice().reverse();
-  if(!ts.length){
-    sl.innerHTML='<div class="empty-state"><div class="empty-em">⏱️</div><div class="empty-title">No sessions yet</div><div class="empty-sub">Start a session to track your study time</div></div>';
-  } else {
-    sl.innerHTML=ts.map(function(s){
-      var subj=subjects.find(function(x){return x.id===s.subjectId;})||{name:'Unknown',color:'#888',icon:'📚'};
-      return'<div class="session-item">'
-        +'<div class="session-line" style="background:'+subj.color+'"></div>'
-        +'<div class="session-info"><div class="session-subj">'+subj.icon+' '+subj.name+'</div>'
-        +(s.note?'<div class="session-note">'+s.note+'</div>':'')
-        +'</div>'
-        +'<div class="session-dur">'+fmtMins(s.minutes)+'</div>'
-        +'<button class="icon-btn" onclick="delSession(\''+s.id+'\')">🗑️</button>'
-        +'</div>';
-    }).join('');
-  }
-
-  // Subjects
-  var sl2=document.getElementById('subjectsList');
-  if(!subjects.length){
-    sl2.innerHTML='<div class="empty-state"><div class="empty-em">📚</div><div class="empty-title">No subjects</div><div class="empty-sub">Add subjects to track your study time</div></div>';
-  } else {
-    sl2.innerHTML=subjects.map(function(s){
-      var sm=getSubjMins(s.id),gm=(s.goalHours||0)*60;
-      var pct=gm>0?Math.min(100,Math.round(sm/gm*100)):0;
-      return'<div class="subject-card">'
-        +'<div class="subj-icon" style="background:'+s.color+'22">'+s.icon+'</div>'
-        +'<div class="subj-info">'
-        +'<div class="subj-name">'+s.name+'</div>'
-        +'<div class="subj-goal">Goal: '+s.goalHours+'h/day</div>'
-        +'<div class="subj-today" style="color:'+s.color+'">Today: '+fmtMins(sm)+'</div>'
-        +'<div class="subj-bar"><div class="subj-fill" style="width:'+pct+'%;background:'+s.color+'"></div></div>'
-        +'</div>'
-        +'<button class="icon-btn" onclick="delSubj(\''+s.id+'\',event)">🗑️</button>'
-        +'</div>';
-    }).join('');
-    setTimeout(function(){
-      document.querySelectorAll('.subj-fill').forEach(function(el){el.style.width=el.style.width;});
-    },100);
-  }
-}
-
-// ════════════════════════════════════
-// RENDER: HABITS
-// ════════════════════════════════════
-function renderHabits(){
-  var done=habits.filter(function(h){return(h.completedDates||[]).indexOf(today())>-1;}).length;
-  var total=habits.length;
-  var pct=total>0?Math.round(done/total*100):0;
-
-  var circumference=201.1;
-  document.getElementById('ringCircle').style.strokeDashoffset=circumference-(pct/100)*circumference;
-  document.getElementById('ringPct').textContent=pct+'%';
-
-  var ts=['Let\'s go! 🚀','Keep going! 💪','Great work! ⭐','Almost! 🔥','Perfect! 🎉'];
-  var ss=['Complete your habits for today','You\'re building momentum!','More than halfway done!','Just a few more!','All habits done! Amazing!'];
-  var idx=Math.min(4,Math.floor(pct/25));
-  document.getElementById('ringTitle').textContent=ts[idx];
-  document.getElementById('ringSub').textContent=ss[idx];
-
-  var hl=document.getElementById('habitsList');
-  if(!habits.length){
-    hl.innerHTML='<div class="empty-state"><div class="empty-em">🌱</div><div class="empty-title">No habits yet</div><div class="empty-sub">Add your first habit and start building streaks!</div></div>';
-    return;
-  }
-  var last7=getLast7();
-  hl.innerHTML=habits.map(function(h){
-    var isDone=(h.completedDates||[]).indexOf(today())>-1;
-    var s=calcHabitStreak(h);
-    var grid=last7.map(function(d){
-      var dd=(h.completedDates||[]).indexOf(d)>-1;
-      var cls='g7-day'+(dd?' done':'')+(d===today()?' today':(!dd?' missed':''));
-      return'<div class="'+cls+'">'+new Date(d).getDate()+'</div>';
-    }).join('');
-    return'<div class="habit-item'+(isDone?' done':'')+'" id="hi_'+h.id+'">'
-      +'<div class="habit-top">'
-      +'<div class="habit-check" onclick="toggleHabit(\''+h.id+'\')">'+(isDone?'✓':'')+'</div>'
-      +'<div style="font-size:28px">'+h.emoji+'</div>'
-      +'<div class="habit-detail">'
-      +'<div class="habit-name">'+h.name+'</div>'
-      +'<div class="habit-streaks">'
-      +(s.current>0?'<span class="h-streak">🔥 '+s.current+' days</span>':'<span style="font-size:11px;color:var(--muted)">Start your streak!</span>')
-      +'<span class="h-best">· Best: '+s.best+'d</span>'
-      +'</div></div>'
-      +'<button class="icon-btn" onclick="delHabit(\''+h.id+'\')">🗑️</button>'
-      +'</div>'
-      +'<div class="habit-grid7">'+grid+'</div>'
-      +'</div>';
-  }).join('');
-}
-
-// ════════════════════════════════════
-// RENDER: STATS
-// ════════════════════════════════════
-function renderStats(){
-  var totalMins=sessions.reduce(function(a,s){return a+s.minutes;},0);
-  document.getElementById('sTotalHrs').textContent=Math.round(totalMins/60*10)/10;
-  var streak=calcStreak();
-  document.getElementById('sBestStreak').textContent=streak.best+'🔥';
-  document.getElementById('sSessions').textContent=sessions.length;
-  var totalDone=habits.reduce(function(a,h){return a+(h.completedDates||[]).length;},0);
-  document.getElementById('sHabitsDone').textContent=totalDone;
-
-  // Breakdown
-  var bl=document.getElementById('breakdownList');
-  if(!subjects.length){bl.innerHTML='<div style="color:var(--muted);font-size:14px;padding:10px 0">No subjects yet.</div>';return;}
-  var allMins=subjects.map(function(s){return sessions.filter(function(x){return x.subjectId===s.id;}).reduce(function(a,x){return a+x.minutes;},0);});
-  var maxM=Math.max.apply(null,allMins.concat([1]));
-  bl.innerHTML=subjects.map(function(s,i){
-    var m=allMins[i],pct=Math.round(m/maxM*100);
-    return'<div class="breakdown-item">'
-      +'<div class="bd-hdr"><div class="bd-subj"><div class="bd-subj-dot" style="background:'+s.color+'"></div>'+s.icon+' '+s.name+'</div>'
-      +'<div class="bd-hrs">'+fmtMins(m)+'</div></div>'
-      +'<div class="bd-bar"><div class="bd-fill" style="width:'+pct+'%;background:'+s.color+'"></div></div>'
-      +'</div>';
-  }).join('');
-
-  // Weekly
-  var last7=getLast7();
-  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  document.getElementById('weekLabels').innerHTML=last7.map(function(d){
-    return'<div class="week-lbl">'+days[new Date(d).getDay()]+'</div>';
-  }).join('');
-  document.getElementById('weekGrid').innerHTML=last7.map(function(d){
-    var hd=habits.filter(function(h){return(h.completedDates||[]).indexOf(d)>-1;}).length;
-    var tot=habits.length;
-    var pct=tot>0?hd/tot:0;
-    return'<div class="week-dot'+(pct>=1?' full':pct>0?' partial':'')+'"></div>';
-  }).join('');
-}
-
-// ════════════════════════════════════
-// SUBJECT ACTIONS
-// ════════════════════════════════════
-function addSubject(){
-  playSound('click');
-  var name=document.getElementById('sName').value.trim();
-  var goal=parseFloat(document.getElementById('sGoal').value)||1;
-  if(!name){showToast('⚠️','Enter subject name');playSound('error');return;}
-  subjects.push({id:gid(),name:name,icon:selIcon,color:selColor,goalHours:goal});
-  saveSubjects();closeModal('subjMod');
-  document.getElementById('sName').value='';document.getElementById('sGoal').value='';
-  renderStudy();renderDash();
-  showToast('📚','Subject added!');playSound('save');
-}
-function delSubj(id,e){
-  e.stopPropagation();playSound('click');
-  subjects=subjects.filter(function(s){return s.id!==id;});
-  saveSubjects();renderStudy();renderDash();
-  showToast('🗑️','Subject removed');
-}
-
-// ════════════════════════════════════
-// HABIT ACTIONS
-// ════════════════════════════════════
-function addHabit(){
-  playSound('click');
-  var name=document.getElementById('hName').value.trim();
-  if(!name){showToast('⚠️','Enter habit name');playSound('error');return;}
-  habits.push({id:gid(),name:name,emoji:selHabitEmoji,completedDates:[]});
-  saveHabits();closeModal('habitMod');
-  document.getElementById('hName').value='';
-  renderHabits();renderDash();
-  showToast('✅','Habit added!');playSound('save');
-}
-
-function toggleHabit(id){
-  var h=habits.find(function(x){return x.id===id;});
-  if(!h)return;
-  if(!h.completedDates)h.completedDates=[];
-  var idx=h.completedDates.indexOf(today());
-  if(idx>-1){
-    h.completedDates.splice(idx,1);
-    playSound('click');
-    showToast('↩️','Habit unmarked');
-  } else {
-    h.completedDates.push(today());
-    playSound('complete');
-    showToast('🔥','Habit done! Great work!');
-    // Check for streak milestone
-    var s=calcHabitStreak(h);
-    if(s.current===7||s.current===30||s.current===100){
-      playSound('streak');
-      setTimeout(function(){showToast('🏆',s.current+' day streak! Amazing!');},600);
-    }
-  }
-  saveHabits();renderHabits();renderDash();
-}
-
-function delHabit(id){
-  playSound('click');
-  habits=habits.filter(function(h){return h.id!==id;});
-  saveHabits();renderHabits();renderDash();
-  showToast('🗑️','Habit removed');
-}
-
-// ════════════════════════════════════
-// TIMER & SESSIONS
-// ════════════════════════════════════
-function selDur(el,mins){
-  playSound('tick');
-  document.querySelectorAll('.dur-btn').forEach(function(b){b.classList.remove('sel');});
-  el.classList.add('sel');selDuration=mins;
-}
-
-function startOrLog(){
-  playSound('click');
-  if(!selTimerSubj){showToast('⚠️','Select a subject first');playSound('error');return;}
-  var note=document.getElementById('sessNote').value.trim();
-  if(selDuration===0){
-    closeModal('timerMod');
-    startTimer(selTimerSubj,note);
-  } else {
-    sessions.push({id:gid(),subjectId:selTimerSubj,date:today(),minutes:selDuration,note:note});
-    saveSessions();closeModal('timerMod');
-    document.getElementById('sessNote').value='';
-    selTimerSubj=null;selDuration=0;
-    document.querySelectorAll('.dur-btn').forEach(function(b){b.classList.remove('sel');});
-    document.getElementById('durBtns').querySelector('.dur-btn:last-child').classList.add('sel');
-    renderStudy();renderDash();
-    showToast('📖',fmtMins(selDuration)+' session logged!');
-    playSound('save');
-  }
-}
-
-function startTimer(subjId,note){
-  var subj=subjects.find(function(s){return s.id===subjId;});
-  timerRunning=true;timerPaused=false;timerSecs=0;
-  timerSubjId=subjId;timerNote=note||'';
-  document.getElementById('timerCard').classList.add('active');
-  document.getElementById('timerSubjName').textContent=(subj?(subj.icon+' '+subj.name):'Subject').toUpperCase();
-  document.getElementById('startBtn').disabled=true;
-  timerInt=setInterval(function(){
-    if(!timerPaused){
-      timerSecs++;
-      var m=Math.floor(timerSecs/60),s=timerSecs%60;
-      document.getElementById('timerDisp').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-      if(timerSecs%60===0)playSound('tick'); // tick every minute
-    }
-  },1000);
-  playSound('save');
-}
-
-function pauseTimer(){
-  timerPaused=!timerPaused;
-  document.getElementById('pauseBtn').textContent=timerPaused?'▶ Resume':'⏸ Pause';
-  playSound('click');
-}
-
-function stopTimer(){
-  clearInterval(timerInt);
-  timerRunning=false;timerPaused=false;
-  var mins=Math.max(1,Math.round(timerSecs/60));
-  sessions.push({id:gid(),subjectId:timerSubjId,date:today(),minutes:mins,note:timerNote});
-  saveSessions();
-  document.getElementById('timerCard').classList.remove('active');
-  document.getElementById('timerDisp').textContent='00:00';
-  document.getElementById('startBtn').disabled=false;
-  document.getElementById('pauseBtn').textContent='⏸ Pause';
-  timerSecs=0;
-  renderStudy();renderDash();
-  showToast('🎉',fmtMins(mins)+' session saved!');
-  playSound('streak');
-}
-
-function delSession(id){
-  playSound('click');
-  sessions=sessions.filter(function(s){return s.id!==id;});
-  saveSessions();renderStudy();renderDash();
-  showToast('🗑️','Session removed');
-}
-
-// ════════════════════════════════════
-// MODAL HELPERS
-// ════════════════════════════════════
-function openModal(id){
-  playSound('click');
-  if(id==='subjMod') buildSubjModal();
-  if(id==='habitMod') buildHabitModal();
-  if(id==='timerMod') buildTimerModal();
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeModal(id){
-  playSound('click');
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow='';
-}
-function ovClick(e,id){if(e.target===document.getElementById(id))closeModal(id);}
-
-function buildSubjModal(){
-  document.getElementById('sColorPick').innerHTML=COLORS.map(function(c){
-    return'<div class="c-dot'+(c===selColor?' sel':'')+'" style="background:'+c+'" onclick="pickColor(this,\''+c+'\')"></div>';
-  }).join('');
-  document.getElementById('sIconPick').innerHTML=SUBJECT_ICONS.map(function(ic){
-    return'<div class="i-opt'+(ic===selIcon?' sel':'')+'" onclick="pickIcon(this,\''+ic+'\')">'+ic+'</div>';
-  }).join('');
-}
-function buildHabitModal(){
-  document.getElementById('hEmojiPick').innerHTML=HABIT_EMOJIS.map(function(em){
-    return'<div class="i-opt'+(em===selHabitEmoji?' sel':'')+'" onclick="pickHabitEmoji(this,\''+em+'\')">'+em+'</div>';
-  }).join('');
-}
-function buildTimerModal(){
-  selTimerSubj=null;selDuration=0;
-  document.getElementById('sessNote').value='';
-  document.querySelectorAll('.dur-btn').forEach(function(b){b.classList.remove('sel');});
-  document.getElementById('durBtns').querySelector('.dur-btn:last-child').classList.add('sel');
-  var ss=document.getElementById('timerSubjSel');
-  if(!subjects.length){ss.innerHTML='<div style="color:var(--muted);font-size:14px;padding:12px 0">No subjects! Add one first.</div>';return;}
-  ss.innerHTML=subjects.map(function(s){
-    return'<div class="ssi" onclick="pickTimerSubj(this,\''+s.id+'\')">'
-      +'<div class="ssi-ico" style="background:'+s.color+'22">'+s.icon+'</div>'
-      +'<div class="ssi-name">'+s.name+'</div>'
-      +'</div>';
-  }).join('');
-}
-
-function pickColor(el,c){playSound('tick');selColor=c;document.querySelectorAll('.c-dot').forEach(function(d){d.classList.remove('sel');});el.classList.add('sel');}
-function pickIcon(el,i){playSound('tick');selIcon=i;document.querySelectorAll('#sIconPick .i-opt').forEach(function(d){d.classList.remove('sel');});el.classList.add('sel');}
-function pickHabitEmoji(el,e){playSound('tick');selHabitEmoji=e;document.querySelectorAll('#hEmojiPick .i-opt').forEach(function(d){d.classList.remove('sel');});el.classList.add('sel');}
-function pickTimerSubj(el,id){playSound('tick');selTimerSubj=id;document.querySelectorAll('.ssi').forEach(function(d){d.classList.remove('sel');});el.classList.add('sel');}
-
-// ════════════════════════════════════
-// TAB SWITCHING
-// ════════════════════════════════════
-function switchTab(name,el){
-  playSound('click');
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
-  document.querySelectorAl
+var HOSTELS=[
+  {
+    id:1,name:"Zostel Koramangala",chain:"Zostel",
+    area:"Koramangala",address:"#60, 1st Main, Koramangala, Bengaluru",
+    emoji:"🏠",gradient:"linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)",
+    price:599,rating:8.9,reviews:412,badge:"Popular",badgeType:"verified",
+    amenities:["wifi","ac","parking","laundry"],
+    desc:"One of Bangalore's most popular hostels, right in the heart of Koramangala. Walking distance to Forum Mall, Cafe Coffee Day, and dozens of startups. Great social vibe with a terrace and garden lounge.",
+    phone:"+91 95919 55977",
+    reviewsList:[
+      {name:"Karan S.",emoji:"🧑",date:"Apr 2025",stars:5,text:"Best hostel in Koramangala! Super clean, great WiFi, and the staff is incredibly helpful. Stayed for 2 weeks during my internship."},
+      {name:"Priya M.",emoji:"👩",date:"Mar 2025",stars:4,text:"Lovely place, very social vibe. Met so many cool people. Location is perfect — everything is walkable."},
+      {name:"Rohan T.",emoji:"👨‍💻",date:"Feb 2025",stars:5,text:"Perfect base for Bangalore. AC rooms, fast WiFi, and close to all the action in Koramangala."}
+    ]
+  },
+  {
+    id:2,name:"Zostel Indiranagar",chain:"Zostel",
+    area:"Indiranagar",address:"2032, 17th Main, 1st Cross, HAL 2nd Stage, Indiranagar",
+    emoji:"🌆",gradient:"linear-gradient(135deg,#0f2027,#203a43,#2c5364)",
+    price:580,rating:8.9,reviews:613,badge:"Top Rated",badgeType:"verified",
+    amenities:["wifi","ac","food","laundry","cowork"],
+    desc:"Zostel's premium Indiranagar property with a garden, shared kitchen, games room, and evening entertainment. Right in the middle of Bangalore's most happening neighbourhood with pubs, cafes and restaurants.",
+    phone:"+91 95919 55977",
+    reviewsList:[
+      {name:"Sneha R.",emoji:"👩",date:"Apr 2025",stars:5,text:"Great hostel — well located, nice vibe, best staff I've encountered. Clean rooms, cozy common areas, easy to meet people."},
+      {name:"Arjun P.",emoji:"🧔",date:"Mar 2025",stars:5,text:"Super accessible by public transit and close to all happening places. Clean, friendly staff, great value for money."},
+      {name:"Dev K.",emoji:"🧑‍💻",date:"Feb 2025",stars:4,text:"Stayed here for a month during my Bangalore stint. It was a great experience. This is my go-to in Bangalore."}
+    ]
+  },
+  {
+    id:3,name:"The Hosteller Brigade Road",chain:"The Hosteller",
+    area:"Brigade Road",address:"124, Brigade Road, opposite Brigade Tower, Bengaluru",
+    emoji:"🛍️",gradient:"linear-gradient(135deg,#2d1515,#4a1515,#6b1f1f)",
+    price:850,rating:9.1,reviews:876,badge:"🔥 Hot",badgeType:"hot",
+    amenities:["wifi","ac","laundry","cowork","food"],
+    desc:"The Hosteller's flagship Bangalore property on iconic Brigade Road. Steps from MG Road metro, Commercial Street, and the best shopping in Bangalore. Modern pods, 24-hour reception, library and co-working space.",
+    phone:"+91 80 4869 5195",
+    reviewsList:[
+      {name:"Aditya V.",emoji:"🧑",date:"Apr 2025",stars:5,text:"Amazing location! Literally walking distance from everything. Hostel is clean, modern, and the staff is extremely professional."},
+      {name:"Meera J.",emoji:"👩‍🦱",date:"Mar 2025",stars:5,text:"The Hosteller never disappoints. Brigade Road property is their best yet. Book early — it fills up fast!"},
+      {name:"Vikram N.",emoji:"👨",date:"Feb 2025",stars:4,text:"Great hostel, perfect location. Co-working space is excellent for remote workers. Would definitely stay again."}
+    ]
+  },
+  {
+    id:4,name:"The Hosteller Koramangala",chain:"The Hosteller",
+    area:"Koramangala",address:"3rd Block, Koramangala, Bengaluru",
+    emoji:"🍕",gradient:"linear-gradient(135deg,#1a0a0a,#3d1a00,#5a2800)",
+    price:799,rating:9.2,reviews:1024,badge:"Best Rated",badgeType:"verified",
+    amenities:["wifi","ac","food","laundry","cowork"],
+    desc:"The highest-rated hostel in Bangalore. The Hosteller Koramangala offers premium dorm beds with individual power sockets and reading lights, a vibrant cafe, weekly events, and an amazing community of travelers and remote workers.",
+    phone:"+91 80 4869 5195",
+    reviewsList:[
+      {name:"Ishaan G.",emoji:"🧑‍🎓",date:"Apr 2025",stars:5,text:"Best hostel experience in India. Period. The community events, the cafe, the vibe — everything is 10/10."},
+      {name:"Ananya S.",emoji:"👸",date:"Mar 2025",stars:5,text:"I've stayed at hostels across India and The Hosteller Koramangala is the best. Clean, social, affordable."},
+      {name:"Rahul M.",emoji:"👨‍💼",date:"Feb 2025",stars:5,text:"Stayed here for a week during my Bangalore trip. The weekly events are brilliant — pub quiz, movie nights, and more!"}
+    ]
+  },
+  {
+    id:5,name:"The Hosteller Indiranagar",chain:"The Hosteller",
+    area:"Indiranagar",address:"100 Feet Road, Indiranagar, Bengaluru",
+    emoji:"🍻",gradient:"linear-gradient(135deg,#0a0a1a,#1a1040,#2a1060)",
+    price:749,rating:8.8,reviews:542,badge:"",badgeType:"",
+    amenities:["wifi","ac","laundry","parking","cowork"],
+    desc:"Located on the famous 100 Feet Road in Indiranagar, this hostel puts you in the centre of Bangalore's best dining and nightlife. Modern facilities, multilingual staff, and free parking available.",
+    phone:"+91 80 4869 5195",
+    reviewsList:[
+      {name:"Siya K.",emoji:"👩‍🎤",date:"Apr 2025",stars:4,text:"Great location on 100 Feet Road. The nightlife is literally at your doorstep. Clean rooms and friendly staff."},
+      {name:"Omar P.",emoji:"🧑",date:"Mar 2025",stars:5,text:"Stayed here for 5 nights. Perfect for exploring Indiranagar's food scene. The staff gave amazing restaurant recommendations."},
+      {name:"Tara S.",emoji:"👩",date:"Feb 2025",stars:4,text:"Good hostel, great location. Free parking was a huge plus. Would stay again on my next Bangalore trip."}
+    ]
+  },
+  {
+    id:6,name:"The Hosteller Marathahalli",chain:"The Hosteller",
+    area:"Marathahalli",address:"Marathahalli Bridge, Outer Ring Road, Bengaluru",
+    emoji:"🏢",gradient:"linear-gradient(135deg,#0a1a0a,#102a10,#1a3a1a)",
+    price:699,rating:8.7,reviews:389,badge:"",badgeType:"",
+    amenities:["wifi","ac","food","laundry"],
+    desc:"The Hosteller's IT corridor property near Marathahalli. Perfect for tech professionals and interns working at companies on Outer Ring Road. Close to ITPL, EPIP Zone, and Whitefield. Great value for long stays.",
+    phone:"+91 80 4869 5195",
+    reviewsList:[
+      {name:"Nikhil D.",emoji:"👨‍💻",date:"Apr 2025",stars:4,text:"Perfect for my IT park internship. 10 mins to office, clean rooms, good WiFi. Very affordable for long stays."},
+      {name:"Preethi A.",emoji:"👩‍🔬",date:"Mar 2025",stars:4,text:"Stayed here during my Infosys joining. Great hostel for working professionals. Staff is very accommodating."},
+      {name:"Suresh V.",emoji:"👨",date:"Feb 2025",stars:5,text:"Best option near Marathahalli. Food is surprisingly good! Very clean and the beds are comfortable."}
+    ]
+  },
+  {
+    id:7,name:"goSTOPS Jayanagar",chain:"goSTOPS",
+    area:"Jayanagar",address:"51, 11th Main Road, 4th Block, Jayanagar, Bengaluru",
+    emoji:"🌿",gradient:"linear-gradient(135deg,#0a1a10,#0d2a15,#0a3a1a)",
+    price:999,rating:8.5,reviews:287,badge:"Premium",badgeType:"verified",
+    amenities:["wifi","ac","food","laundry","cowork"],
+    desc:"goSTOPS's premium Jayanagar property in one of Bangalore's most sought-after residential neighbourhoods. Beautiful heritage building, rooftop seating, and a cafe. Great for those wanting to experience residential Bangalore away from tourist crowds.",
+    phone:"+91 99300 22227",
+    reviewsList:[
+      {name:"Kavita R.",emoji:"👩",date:"Apr 2025",stars:5,text:"The most beautiful hostel in Bangalore. The heritage building is stunning and the rooftop is magical at night."},
+      {name:"Aryan B.",emoji:"🧑",date:"Mar 2025",stars:4,text:"Loved Jayanagar area! Much calmer than Koramangala. Great hostel, excellent staff, good food."},
+      {name:"Diya M.",emoji:"👩‍🦰",date:"Feb 2025",stars:5,text:"GoSTOPS Jayanagar exceeded my expectations. The cafe serves amazing breakfast and the common area is gorgeous."}
+    ]
+  },
+  {
+    id:8,name:"goSTOPS HSR Layout",chain:"goSTOPS",
+    area:"HSR Layout",address:"Outer Ring Road, HSR Layout, near Silk Board, Bengaluru",
+    emoji:"💻",gradient:"linear-gradient(135deg,#0a0a20,#101035,#15154a)",
+    price:849,rating:8.4,reviews:211,badge:"",badgeType:"",
+    amenities:["wifi","ac","food","parking","gym"],
+    desc:"goSTOPS HSR Layout is perfectly placed for Bangalore's tech crowd. Near Silk Board Junction with easy access to Electronic City and Koramangala. Features a restaurant, gym, and garden with 24-hour security.",
+    phone:"+91 99300 22227",
+    reviewsList:[
+      {name:"Vivek C.",emoji:"🧑‍💻",date:"Apr 2025",stars:4,text:"Great for IT professionals. Near the junction so easy connectivity everywhere. The gym is a big bonus!"},
+      {name:"Anita K.",emoji:"👩",date:"Mar 2025",stars:4,text:"Clean and modern. Good food, fast WiFi, friendly staff. Parking available which is rare in Bangalore."},
+      {name:"Rajesh T.",emoji:"👨‍💼",date:"Feb 2025",stars:5,text:"Perfect location for my Koramangala office. Used this as a base for 3 weeks. Great value for money."}
+    ]
+  },
+  {
+    id:9,name:"goSTOPS Gandhi Nagar",chain:"goSTOPS",
+    area:"Majestic",address:"Gandhi Nagar, Near Kempegowda Bus Stand, Majestic, Bengaluru",
+    emoji:"🚉",gradient:"linear-gradient(135deg,#1a0a2a,#2a1040,#3a1550)",
+    price:750,rating:8.2,reviews:303,badge:"",badgeType:"",
+    amenities:["wifi","ac","food","parking","cowork"],
+    desc:"The most centrally located hostel in Bangalore, steps from Majestic railway and bus station. Perfect for arrivals and departures. Features a games room, pet-friendly policy, and affordable rates for the prime location.",
+    phone:"+91 99300 22227",
+    reviewsList:[
+      {name:"Sameer H.",emoji:"🧑",date:"Apr 2025",stars:4,text:"Unbeatable location! 2 minutes from Majestic station. Perfect for train arrivals. Good value for central Bangalore."},
+      {name:"Lakshmi P.",emoji:"👩",date:"Mar 2025",stars:3,text:"Basic but functional. Staff is helpful. The location makes up for everything. Easy access to everywhere."},
+      {name:"Amir K.",emoji:"👨",date:"Feb 2025",stars:4,text:"Stayed here for first and last night of my Bangalore trip. Perfect hub hostel. Clean and affordable."}
+    ]
+  },
+  {
+    id:10,name:"Woke Hostel Indiranagar",chain:"Woke Hostels",
+    area:"Indiranagar",address:"12th Main, Indiranagar, Bengaluru",
+    emoji:"🎵",gradient:"linear-gradient(135deg,#1a0a1a,#2a0d2a,#3a1040)",
+    price:950,rating:8.4,reviews:297,badge:"Social Hub",badgeType:"verified",
+    amenities:["wifi","ac","food","pool","laundry"],
+    desc:"Woke Indiranagar is Bangalore's most social hostel — think rooftop parties, pub crawls, live music, and a pool. Right in the party hub of Indiranagar with the best bars and restaurants at your doorstep. 18+ only.",
+    phone:"+91 80 6969 6969",
+    reviewsList:[
+      {name:"Raj V.",emoji:"🧑‍🎸",date:"Apr 2025",stars:5,text:"BEST party hostel in Bangalore! The rooftop events are insane. Met amazing people from all over the world."},
+      {name:"Sofia L.",emoji:"👩",date:"Mar 2025",stars:4,text:"Great vibe, great people. The pub crawls organised by staff are brilliant. Indiranagar is the perfect location."},
+      {name:"Kabir T.",emoji:"👨",date:"Feb 2025",stars:5,text:"Stayed for a week. The pool was a lifesaver in Bangalore heat. Social events every single night!"}
+    ]
+  },
+  {
+    id:11,name:"Woke HSR Layout",chain:"Woke Hostels",
+    area:"HSR Layout",address:"27th Main, HSR Layout, Bengaluru",
+    emoji:"🏋️",gradient:"linear-gradient(135deg,#0a1a1a,#0d2a2a,#0a3a35)",
+    price:850,rating:8.7,reviews:211,badge:"",badgeType:"",
+    amenities:["wifi","ac","food","gym","laundry"],
+    desc:"Woke HSR is the calmer, more relaxed sibling of Woke Indiranagar. Great for tech workers and those wanting a social vibe without the party scene. Excellent gym, fast WiFi, and a fantastic cafe.",
+    phone:"+91 80 6969 6969",
+    reviewsList:[
+      {name:"Pooja S.",emoji:"👩‍💻",date:"Apr 2025",stars:5,text:"Best hostel for work-life balance in Bangalore. Great gym, fast WiFi, healthy food. Perfect for remote workers."},
+      {name:"Dhruv R.",emoji:"👨‍🏋️",date:"Mar 2025",stars:4,text:"Loved the gym! Clean rooms, good food, social but not too crazy. Great place for a longer stay."},
+      {name:"Nidhi K.",emoji:"👩",date:"Feb 2025",stars:4,text:"Comfortable stay in HSR. Good amenities, friendly staff, and close to good restaurants and cafes."}
+    ]
+  },
+  {
+    id:12,name:"Locul Central",chain:"Locul",
+    area:"Brigade Road",address:"Church Street, Near Brigade Road, Bengaluru",
+    emoji:"🎨",gradient:"linear-gradient(135deg,#1a1a0a,#2a2a0d,#3a350a)",
+    price:1050,rating:8.9,reviews:567,badge:"Luxury",badgeType:"verified",
+    amenities:["wifi","ac","food","parking","cowork","pool"],
+    desc:"Locul Central is Bangalore's most design-forward hostel. Set in a beautiful heritage building on Church Street, every room is an art installation. Rooftop pool, curated events, high-speed fibre WiFi, and artisanal cafe.",
+    phone:"+91 96860 11111",
+    reviewsList:[
+      {name:"Ananya G.",emoji:"👸",date:"Apr 2025",stars:5,text:"The most beautiful hostel I've ever stayed in. The design is stunning. Rooftop pool with city views is unreal."},
+      {name:"Kiran P.",emoji:"👨‍🎨",date:"Mar 2025",stars:5,text:"Locul Central is truly special. Worth every rupee. The curated art on the walls, the cafe, the pool — 10/10."},
+      {name:"Zara N.",emoji:"👩‍🦱",date:"Feb 2025",stars:4,text:"Premium hostel experience. More expensive but the quality shows. Staff are incredibly helpful and cultured."}
+    ]
+  },
+  {
+    id:13,name:"Locul Uptown",chain:"Locul",
+    area:"Majestic",address:"Near Palace Grounds, Sadashivanagar, Bengaluru",
+    emoji:"🏰",gradient:"linear-gradient(135deg,#1a0a0a,#2a1015,#3a1520)",
+    price:1200,rating:8.7,reviews:957,badge:"Top Pick",badgeType:"verified",
+    amenities:["wifi","ac","food","pool","parking","gym"],
+    desc:"Easily Bangalore's best overall hostel. Locul Uptown near Palace Grounds is more hotel than hostel — premium rooms, infinity pool, gym, restaurant, and concierge service. Ideal for business travellers wanting hostel community at hotel quality.",
+    phone:"+91 96860 11111",
+    reviewsList:[
+      {name:"Rahul A.",emoji:"👨‍💼",date:"Apr 2025",stars:5,text:"Locul Uptown exceeds all expectations. The infinity pool, the food, the service — thi
